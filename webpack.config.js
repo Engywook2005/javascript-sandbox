@@ -11,6 +11,9 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: '/js/'
   },
+  devServer: {
+    writeToDisk: true
+  },
   mode: 'development',
   module: {
     rules: [
