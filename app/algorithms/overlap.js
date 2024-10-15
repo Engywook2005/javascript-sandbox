@@ -14,7 +14,7 @@ function mergeIntervals(intervals) {
         const nextResult = [sorted[i][0], sorted[i][1]];
 
         // Then find the next interval whose beginning is before the end of sorted[i], but whose end is after sorted[i]
-        for(let j = i; j < sorted.length; j++) {
+        for(let j = i + 1; j < sorted.length; j++) {
             const current = sorted[i];
             const next = sorted[j];
 
@@ -22,16 +22,15 @@ function mergeIntervals(intervals) {
             if(next[0] > current[1]) {
                 break;
             }
-            // If the next interval falls completely within the current interval, skip it and don't look back. 
-            else if(current[1] > next[1]) {
+            else if(current[1] > next[0]) {
+                // Partial overlap, merge.
+                if(current[1] < next[1]) {
+                    nextResult[1] = next[1];
+                }
+
+                // Either way we skip the next interval. This would have the effect of absorbing the next interval if it is completely within the current interval.
                 i++;
             } 
-            // Otherwise we may have an overlap. Confirm that; if we do we also don't need to check it again.
-            else if(current[1] > next[0] && current[1] < next[1]) {
-                nextResult[1] = next[1];
-                i++;
-            }
-
         }
 
         result.push(nextResult);
