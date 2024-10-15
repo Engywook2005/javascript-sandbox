@@ -1,8 +1,4 @@
-import {naivePatternSearch} from './algorithms';
+import {mergeIntervals} from './algorithms';
 
-// Example usage:
-const text = "ABAAABCDBABC";
-const pattern = "ABC";
-const matches = naivePatternSearch(text, pattern);
-
-console.log(matches); // Output: [4, 9]
+const intervals = [[1,3],[2,6],[8,10],[15,18]]
+console.log(mergeIntervals(intervals));
