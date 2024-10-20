@@ -1,3 +1,3 @@
-import {getPermutations} from './permutation';
+import {getPermutations, mergeSort, reverseString} from './breakdown';
 
-export {getPermutations};
+export {getPermutations, mergeSort, reverseString};
