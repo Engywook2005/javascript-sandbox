@@ -1,4 +1,3 @@
-import {mergeIntervals} from './algorithms';
+import {getPermutations, permutations} from './recursion';
 
-const intervals = [[1,3],[2,6],[8,10],[15,18]]
-console.log(mergeIntervals(intervals));
+getPermutations('abc');
