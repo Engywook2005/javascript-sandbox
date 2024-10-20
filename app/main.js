@@ -1,3 +1,3 @@
-import {getPermutations, permutations} from './recursion';
+import {removeDuplicatesLimited} from './algorithms';
 
-getPermutations('abc');
+console.log(removeDuplicatesLimited([1, 2, 3, 2, 4, 1, 5, 1, 2], 1))
