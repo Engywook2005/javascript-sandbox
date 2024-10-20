@@ -1,3 +1,3 @@
-import {removeDuplicatesLimited} from './algorithms';
+import {sumToN} from './recursion';
 
-console.log(removeDuplicatesLimited([1, 2, 3, 2, 4, 1, 5, 1, 2], 1))
+console.log(sumToN(10));

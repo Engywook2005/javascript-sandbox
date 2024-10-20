@@ -1,3 +1,4 @@
 import {getPermutations} from './permutation';
+import {sumToN} from './sums';
 
-export {getPermutations};
+export {getPermutations, sumToN};
