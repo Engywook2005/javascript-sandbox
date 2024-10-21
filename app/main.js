@@ -1,3 +1,3 @@
-import {sumToN} from './recursion';
+import {arraySum} from './recursion';
 
-console.log(sumToN(10));
+console.log(arraySum([1, [2, [3, [4, [5]]]]]));
