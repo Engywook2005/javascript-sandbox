@@ -1,3 +1,5 @@
-import {arraySum} from './recursion';
+import {flattenArrayAndObject} from './recursion';
 
-console.log(arraySum([1, [2, [3, [4, [5]]]]]));
+const testObj = [[1, 2, 3], {a:4,b:5,c:6}]
+
+console.log(flattenArrayAndObject(testObj));

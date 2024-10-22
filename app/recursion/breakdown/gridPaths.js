@@ -5,3 +5,5 @@ function gridPaths(m, n) {
     
     return sumPaths(m, n - 1) + sumPaths(n, m - 1);
 }
+
+export {gridPaths}

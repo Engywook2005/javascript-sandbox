@@ -1,3 +1,3 @@
-import {getPermutations, mergeSort, reverseString, sumToN, gridPaths, arraySum} from './breakdown';
+import {getPermutations, mergeSort, reverseString, sumToN, gridPaths, arraySum, flattenArrayAndObject} from './breakdown';
 
-export {getPermutations, mergeSort, reverseString, sumToN, gridPaths, arraySum};
+export {getPermutations, mergeSort, reverseString, sumToN, gridPaths, arraySum, flattenArrayAndObject};
