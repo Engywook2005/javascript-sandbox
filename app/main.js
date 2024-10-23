@@ -1,5 +1,9 @@
-import {flattenArrayAndObject} from './recursion';
+import {iterativeMergeSort} from './algorithms';
 
-const testObj = [[1, 2, 3], {a:4,b:5,c:6}]
+let k = 0;
+let arr = new Array(8);
+arr[k++] = "fish";
 
-console.log(flattenArrayAndObject(testObj));
+// const exampleArray = [8, 4, 7, 3, 5, 2, 6, 1];
+// const sortedArray = iterativeMergeSort(exampleArray);
+// console.log(sortedArray);
