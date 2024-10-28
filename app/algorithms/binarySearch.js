@@ -1,4 +1,7 @@
 function binarySearch(array, target, left = 0, right = array.length - 1) {
+    // Eventually, if the target is not present in the array, the pointers will cross 
+    // each other—meaning left will become greater than right.
+    // 
     if (left > right) {
         // Base case: target not found
         return -1;

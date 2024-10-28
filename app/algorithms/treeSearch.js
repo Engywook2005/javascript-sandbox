@@ -1,18 +1,15 @@
 // Example graph represented as an adjacency list
-const graph = {
-    A: ['B', 'C'],
-    B: ['D', 'E'],
-    C: ['F'],
-    D: [],
-    E: ['F'],
-    F: []
-  };
   
-  // DFS using recursion -- used for solving a maze
+  // DFS using recursion -- used for solving a maze or where we 
+  // don't need to find the shortest path.
+  // Uses less memory because it only needs to keep track of the current path
+  // O(d) where d is depth
   function dfs(graph, start, visited = new Set()) {
+    // If we have visited this node already, we're done.
+    // This works because visited is THE SAME SET between each call to dfs
     if (visited.has(start)) return;
     
-    console.log(start); // Process the node
+    console.log(start); 
     visited.add(start);
   
     for (const neighbor of graph[start]) {
@@ -26,7 +23,10 @@ const graph = {
   // Output will be: A, B, D, E, F, C
   
   
-  // BFS using a queue - used for chess algorithm
+  // BFS using a queue - used for chess algorithm or for finding the shortest path in a maze
+  // Ideal for finding the shortest path in an unweighted graph
+  // Higher memory usage
+  // Complexity is O(vertices + edges) for general graphs or O(b^d) for trees where b is maximum branching and d is depth
   function bfs(graph, start) {
     const visited = new Set();
     const queue = [start];
@@ -47,8 +47,4 @@ const graph = {
     }
   }
   
-  // Call the BFS function starting from node 'A'
-  // bfs(graph, 'A');
-  
-  // Output will be: A, B, C, D, E, F
-  
+export {dfs, bfs}  
