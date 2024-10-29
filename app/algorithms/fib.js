@@ -23,30 +23,28 @@ const lenLongestFibSubseq = (arr) => {
     }
   
     const findArrayPermutations = function(testArr) {
-      if(testArr.length <= 1) {
-        return [testArr];
-      }
-  
-      const permutations = [];
-  
-  
-      for(let i = 0; i < testArr.length; i++) {
-        const first = testArr[i];
-  
-        const remaining = testArr.slice(i + 1);
-  
-        const remainingPermutations = findArrayPermutations(remaining);
-  
-        permutations.push(first);
-        for(let perm of remainingPermutations) {
-          permutations.push(perm);
+        if (testArr.length <= 1) {
+          return [testArr];
         }
-      }
-  
-      console.log(permutations);
-  
-      return permutations;
-    }
+      
+        const permutations = [];
+      
+        for (let i = 0; i < testArr.length; i++) {
+          const first = testArr[i];
+          
+          // Remove the current element and concatenate the remaining elements
+          const remaining = [...testArr.slice(0, i), ...testArr.slice(i + 1)];
+      
+          const remainingPermutations = findArrayPermutations(remaining);
+      
+          for (let perm of remainingPermutations) {
+            permutations.push([first, ...perm]);
+          }
+        }
+      
+        return permutations;
+      };
+      
   
     const fibFinder = function(testArr, counter = 0) {
       let maxLength = 0;
