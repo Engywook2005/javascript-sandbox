@@ -3853,6 +3853,7 @@
                 try {
                     let e = {
                         floorMin: i,
+                        currency: "USD",
                         data: {
                             values: {
                                 "*": i
@@ -3872,7 +3873,7 @@
                     "rubicon" === t.bidder && e.config.mediaTypes.video && (t.params.floor = i),
                     "openx" === t.bidder && (t.params.customFloor = i),
                     "ttd" === t.bidder && (t.params.bidfloor = i),
-                    "appnexus" === t.bidder && (t.params.bidfloor = i),  
+                    // "appnexus" === t.bidder && (t.params.bidfloor = i),  
                     t.getFloor = function() {
                         return {
                             floor: i,
@@ -6807,12 +6808,12 @@
                     includeSourceKvp: !0
                 }
             },
-            adapterOptions: {
-                appnexus: {
-                    bidfloor: 0.65,
-                    bidfloorcur: 'USD'
-                }
-            }, 
+            // adapterOptions: {
+            //     appnexus: {
+            //         bidfloor: 0.65,
+            //         bidfloorcur: 'USD'
+            //     }
+            // }, 
             impressionData: {
                 bidfloor: 0.65,
                 bidfloorcur: 'USD'
