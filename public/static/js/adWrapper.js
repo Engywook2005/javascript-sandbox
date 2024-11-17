@@ -3873,7 +3873,7 @@
                     "rubicon" === t.bidder && e.config.mediaTypes.video && (t.params.floor = i),
                     "openx" === t.bidder && (t.params.customFloor = i),
                     "ttd" === t.bidder && (t.params.bidfloor = i),
-                    // "appnexus" === t.bidder && (t.params.bidfloor = i),  
+                    // "appnexus" === t.bidder && (t.params.bidFloor = i),  
                     t.getFloor = function() {
                         return {
                             floor: i,
