@@ -1,13 +1,3 @@
-import {dfs} from './algorithms';
+import { coinPyramid } from "./recursion";
 
-const graph = {
-    A: ['B', 'C'],
-    B: ['D', 'E'],
-    C: ['F'],
-    D: [],
-    E: ['F'],
-    F: []
-  };
-
-
-dfs(graph, 'A');
+console.log(coinPyramid(7));
