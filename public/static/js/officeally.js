@@ -1,0 +1,48 @@
+(function() {
+    let fgp = function(parameterName) {
+        let result = null
+          , tmp = [];
+        try {
+            let getParams = (window.location !== window.parent.location) ? window.parent.location.search : document.location.search;
+            getParams.substr(1).split("&").forEach(function(item) {
+                tmp = item.split("=");
+                if (tmp[0] === parameterName) {
+                    result = decodeURIComponent(tmp[1]);
+                }
+            });
+        } catch (err) {}
+        return result;
+    }
+    let lw = function(script_path) {
+        let primary = script_path;
+        let secondary = script_path;
+        let lS = function(path, onError) {
+            let s = document.createElement("script");
+            s.type = "text/javascript";
+            s.src = path;
+            s.async = true;
+            s.onload = function() {}
+            ;
+            s.onerror = onError;
+            let h = document.head;
+            h.appendChild(s);
+        }
+        lS(primary, function() {
+            lS(secondary, function() {})
+        });
+    }
+    const sc = [];
+
+    sc.push({
+        "script_path": "http://localhost:8909/static/js/officeAllyAdWrapper.js",
+        "pct": 100
+    })
+    if (fgp("lngtd_version")) {
+        let scriptPath = `http://localhost:8909/static/js/officeAllyAdWrapper.js`;
+        lw(scriptPath);
+    } else {
+        const exp = sc.flatMap(co => Array(co.pct).fill(co));
+        const w = exp[Math.floor(Math.random() * exp.length)];
+        lw('http://localhost:8909/static/js/officeAllyAdWrapper.js');
+    }
+}());

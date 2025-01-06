@@ -881,8 +881,8 @@
         return {}
     }
     function f(t) {
-        let e = window[n.b].primaryBaseScriptPath + t
-          , i = window[n.b].secondaryBaseScriptPath + t
+        let e = t
+          , i = t
           , o = function(t, e) {
             let i = document.createElement("script");
             i.type = "text/javascript",
@@ -6525,7 +6525,7 @@
             m.a.preCMP(),
             Object(o.v)(),
             a.a.loadScript(),
-            Object(n.j)("prebid.js"),
+            Object(n.j)("http://localhost:8909/static/js/prebid.js"),
             Object(n.e)("sp_test") && l.a.setConfig("account.sourcepointId", parseInt(Object(n.e)("sp_test"))),
             !u.b.cmpApplies() && !u.b.alwaysLoad || Object(n.e)("ignoreCMP") ? window[c.b].cmpReady() : (l.a.getConfig("account.enableSourcepoint") && (u.a.loadStubs(),
             u.a.load()),
