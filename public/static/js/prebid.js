@@ -25,7 +25,6 @@ function dlv(obj, key, def, p, undef) {
 	return obj === undef ? def : obj;
 }
 
-
 /***/ }),
 
 /***/ "./node_modules/fun-hooks/no-eval/index.js":
@@ -770,6 +769,16 @@ function klona(val) {
 
 const pbjsInstance = (0,_prebidGlobal_js__WEBPACK_IMPORTED_MODULE_0__.getGlobal)();
 const moduleCode = 'outstream';
+
+pbjsInstance.getUserIds = function() {
+    console.log('getting user ids');
+    return {};
+}
+
+pbjsInstance.refreshUserIds = function() {
+    // NO-OP
+    console.log('refreshing user ids');
+}
 
 /**
  * @typedef {object} Renderer
@@ -5619,7 +5628,7 @@ function newConfig() {
   function setBidderConfig(config) {
     let mergeFlag = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
     try {
-      check(config);
+        check(config);
       config.bidders.forEach(bidder => {
         if (!bidderConfig[bidder]) {
           bidderConfig[bidder] = attachProperties({}, false);
@@ -8697,6 +8706,8 @@ pbjsInstance.removeAdUnit = function (adUnitCode) {
  * @alias module:pbjs.requestBids
  */
 pbjsInstance.requestBids = function () {
+  debugger;
+  console.log('requestBids');  
   const delegate = (0,_hook_js__WEBPACK_IMPORTED_MODULE_11__.hook)('async', function () {
     let {
       bidsBackHandler,
@@ -8898,6 +8909,7 @@ pbjsInstance.requestBids.before(executeCallbacks, 49);
  * @alias module:pbjs.addAdUnits
  */
 pbjsInstance.addAdUnits = function (adUnitArr) {
+  debugger;  
   (0,_utils_js__WEBPACK_IMPORTED_MODULE_4__.logInfo)("Invoking pbjs.addAdUnits", arguments);
   pbjsInstance.adUnits.push.apply(pbjsInstance.adUnits, (0,_utils_js__WEBPACK_IMPORTED_MODULE_4__.isArray)(adUnitArr) ? adUnitArr : [adUnitArr]);
   // emit event
@@ -11477,7 +11489,8 @@ function hasConsoleLogger() {
   return consoleLogExists;
 }
 function debugTurnedOn() {
-  return !!_config_js__WEBPACK_IMPORTED_MODULE_2__.config.getConfig('debug');
+  return true;
+  // return !!_config_js__WEBPACK_IMPORTED_MODULE_2__.config.getConfig('debug');
 }
 const createIframe = (() => {
   const DEFAULTS = {
@@ -14448,11 +14461,11 @@ function fillVideoResponse(bidResponse, seatbid, context) {
 /* harmony import */ var _src_prebidGlobal_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../src/prebidGlobal.js */ "./src/prebidGlobal.js");
 /* harmony import */ var _src_adapters_bidderFactory_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../src/adapters/bidderFactory.js */ "./src/adapters/bidderFactory.js");
 
-
 const BIDDER_CODE = 'medscape';
 const spec = {
   code: BIDDER_CODE,
   isBidRequestValid: bid => {
+    debugger;
     return !!bid.params.placementId;
   },
   buildRequests: (validBidRequests, bidderRequest) => {
