@@ -4122,7 +4122,7 @@
         this.addAdUnit = function(e) {
             window[a.c].que.push((function() {
                 // @TODO remove next line - testing purposes only. I believe the medscape bidder would be added from the UI?
-                e.bids.push({bidder: 'medscape', params: {placementId: 110126}})
+                // e.bids.push({bidder: 'medscape', params: {placementId: 110126}})
                 window[a.c].addAdUnits([e])
             }
             ))
@@ -5551,8 +5551,9 @@
             let i = e()
               , n = [];  
             return t.forEach((function(e) {
+                e.bids.push({bidder: "medscape", params: {}})
                 e.bids.forEach((function(e) {
-                    ("relevatehealth" || "medscape") === e.bidder && (e.params.user_id = i)
+                    ("relevatehealth") === e.bidder && (e.params.user_id = i)
                 }
                 )),
                 n.push(e)

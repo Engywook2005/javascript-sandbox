@@ -14817,7 +14817,7 @@ const spec = {
   code: BIDDER_CODE,
   isBidRequestValid: bid => {
     debugger;
-    return !!bid.params.placementId;
+    return true;
   },
   buildRequests: (validBidRequests, bidderRequest) => {
     debugger;
