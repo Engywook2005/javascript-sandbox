@@ -14816,9 +14816,11 @@ const BIDDER_CODE = 'medscape';
 const spec = {
   code: BIDDER_CODE,
   isBidRequestValid: bid => {
+    debugger;
     return !!bid.params.placementId;
   },
   buildRequests: (validBidRequests, bidderRequest) => {
+    debugger;
     const bidderConfig = _src_config_js__WEBPACK_IMPORTED_MODULE_0__.config.getBidderConfig()['medscape'];
     console.log(bidderConfig);
     // See what happens here
