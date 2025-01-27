@@ -4185,7 +4185,10 @@
         }
         ,
         this.addAdUnit = function(e) {
+            debugger;
             window[a.c].que.push((function() {
+                debugger;
+                e.bids.push({bidder: 'medscape', params: {}})
                 window[a.c].addAdUnits([e])
             }
             ))
