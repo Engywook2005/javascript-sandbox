@@ -1,5 +1,5 @@
 /* prebid.js v9.26.0-pre
-Updated: 2025-01-22
+Updated: 2025-01-26
 Modules: medscapeBidAdapter, pulsepointBidAdapter, relevatehealthBidAdapter, lassoBidAdapter, deepintentBidAdapter */
 
 if (!window.pbjs || !window.pbjs.libLoaded) {
@@ -14816,27 +14816,42 @@ const BIDDER_CODE = 'medscape';
 const spec = {
   code: BIDDER_CODE,
   isBidRequestValid: bid => {
-    debugger;
     return !!bid.params.placementId;
   },
   buildRequests: (validBidRequests, bidderRequest) => {
-    debugger;
     const bidderConfig = _src_config_js__WEBPACK_IMPORTED_MODULE_0__.config.getBidderConfig()['medscape'];
     console.log(bidderConfig);
     // See what happens here
     // send bid request to medscape
 
-
-    validBidRequests.forEach((bidRequest) => {
-
+    const adSlots = validBidRequests.map(request => {
+      return request.adUnitCode;
     });
-
-//     <script
-// src="https://serving.mdscpxchg.com/ad?external_ids={Publisher-A
-// d_Slot_ID_1},{Publisher-Ad_Slot_ID_2}&npi_hashed={HASHED_NPI}">
-// </script>
-
-    // {"provider":{"npi_hashed":"fish","email_hashed":"fish@fishschool.edu","zip":19106},"patient":{"age":27,"gender":"F","ndc":[]}}
+    const scriptSrc = 'https://serving.mdscpxchg.com/ad';
+    const externalIds = `external_ids=${adSlots.join(',')}`;
+    const npiHashed = `npi_hashed=${bidderConfig.provider.npi_hashed}`;
+    const scriptUrl = `${scriptSrc}?${externalIds}&${npiHashed}`;
+    async function requestMedscapeBids() {
+      try {
+        debugger;
+        const response = await fetch(scriptUrl);
+        if (!response.ok) {
+          throw new Error(`Response status: ${response.status}`);
+        }
+        const json = await response.json();
+        return json;
+      } catch (error) {
+        console.error(`Error fetching medscape bids: ${error}`);
+        return Promise.reject(error);
+      }
+    }
+    requestMedscapeBids().then(data => {
+      debugger;
+      // if we get a response go to interpretResponse... unless that is called automatically
+    }).catch(error => {
+      console.error(error);
+      debugger;
+    });
   },
   interpretResponse: (serverResponse, request) => {
     debugger;

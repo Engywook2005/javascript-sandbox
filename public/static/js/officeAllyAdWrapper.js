@@ -4120,8 +4120,8 @@
         }
         ,
         this.addAdUnit = function(e) {
-            debugger;
             window[a.c].que.push((function() {
+                // @TODO remove next line - testing purposes only. I believe the medscape bidder would be added from the UI?
                 e.bids.push({bidder: 'medscape', params: {placementId: 110126}})
                 window[a.c].addAdUnits([e])
             }
@@ -5486,7 +5486,7 @@
                     bidders: ['medscape'],
                     config: {
                         provider: {
-                            npi_hashed: "fish",
+                            npi_hashed: "83f5ada08d1a90e48867e103314149417a6b1c81fe266619135caacf3170e648",
                             email_hashed: "fish@fishschool.edu",
                             zip: 19106, // testing
                         }, 
@@ -5547,8 +5547,9 @@
         }
         )),
         window[n.b].accountFunctions.cleanUnitConfigs = function(t) {
+            debugger;
             let i = e()
-              , n = [];
+              , n = [];  
             return t.forEach((function(e) {
                 e.bids.forEach((function(e) {
                     ("relevatehealth" || "medscape") === e.bidder && (e.params.user_id = i)
