@@ -88,11 +88,11 @@
     }
     )),
     i.d(t, "e", (function() {
-        return h
+        return g
     }
     )),
     i.d(t, "d", (function() {
-        return g
+        return h
     }
     )),
     i.d(t, "b", (function() {
@@ -355,10 +355,10 @@
         )),
         t
     }
-    function h() {
+    function g() {
         return c.isMobile() ? d.getConfig("account.mobileTimeout") : d.getConfig("account.desktopTimeout")
     }
-    function g() {
+    function h() {
         let e = {};
         return d.getConfig("partners").forEach((function(t) {
             t.gamId && (e[t.gamId] = t.shortName)
@@ -422,7 +422,7 @@
     const n = "pbjs"
       , o = "lngtd"
       , s = "lngtd_debug"
-      , r = "31"
+      , r = "46"
 }
 , function(e, t, i) {
     "use strict";
@@ -459,7 +459,7 @@
         } catch (e) {}
     }
     function u() {}
-    function h(e, t, i, o) {
+    function g(e, t, i, o) {
         try {
             let r = {
                 event: e,
@@ -478,7 +478,7 @@
             let c = !1;
             ["impression", "viewable_impression", "pageview"].indexOf(e) > -1 && (c = !0),
             c ? p(r) : function(e) {
-                g.length >= 50 ? f() : g.push(e)
+                h.length >= 50 ? f() : h.push(e)
             }(r)
         } catch (e) {}
     }
@@ -491,7 +491,7 @@
     }
     )),
     i.d(t, "e", (function() {
-        return h
+        return g
     }
     )),
     i.d(t, "b", (function() {
@@ -510,10 +510,10 @@
         return y
     }
     ));
-    let g = [];
+    let h = [];
     function f() {
-        let e = JSON.parse(JSON.stringify(g));
-        g = [],
+        let e = JSON.parse(JSON.stringify(h));
+        h = [],
         p(e)
     }
     function p(e) {
@@ -561,7 +561,7 @@
         e.page_url = t,
         e.referrer_url = i,
         n.g.pvLogged = !0,
-        h("pageview", m(), null, e)
+        g("pageview", m(), null, e)
     }
     function w(e) {
         let t = e.bidderCode
@@ -579,7 +579,8 @@
             response_time: e.timeToRespond,
             size: e.width + "x" + e.height,
             encrypted_bid: e.encryptedBid,
-            uid: e.requestId
+            uid: e.requestId,
+            source: e.source
         }
           , s = {};
         r.a.dropBidderCode && (s.dropped_bidder = r.a.dropBidderCode);
@@ -598,7 +599,7 @@
         try {
             s.addomain = e.adserverTargeting.hb_adomain
         } catch (e) {}
-        h("bid", m(), o, s)
+        g("bid", m(), o, s)
     }
     function y(e) {
         try {
@@ -616,11 +617,11 @@
                 auction_id: e.auctionId,
                 uid: e.bidId
             };
-            h("bid_below_floor", m(), s, null)
+            g("bid_below_floor", m(), s, null)
         } catch (e) {}
     }
     setInterval((function() {
-        g.length && f()
+        h.length && f()
     }
     ), 5e3)
 }
@@ -659,11 +660,11 @@
     }
     )),
     i.d(t, "a", (function() {
-        return h
+        return g
     }
     )),
     i.d(t, "k", (function() {
-        return g
+        return h
     }
     )),
     i.d(t, "i", (function() {
@@ -800,7 +801,7 @@
         ))),
         e
     }
-    function h(e, t) {
+    function g(e, t) {
         var i, n, o;
         for (i = 0; i < e.length; ++i)
             if (t.length === e[i].length) {
@@ -812,7 +813,7 @@
             }
         return -1
     }
-    function g(e, t) {
+    function h(e, t) {
         const i = document.getElementById(e);
         let n, o = !1;
         if (i) {
@@ -850,8 +851,8 @@
         return {}
     }
     function f(e) {
-        let t = e
-          , i = e
+        let t = window[n.b].primaryBaseScriptPath + e
+          , i = window[n.b].secondaryBaseScriptPath + e
           , o = function(e, t) {
             let i = document.createElement("script");
             i.type = "text/javascript",
@@ -923,8 +924,8 @@
       , c = i(6)
       , l = i(9)
       , u = i(10)
-      , h = i(8);
-    function g(e) {
+      , g = i(8);
+    function h(e) {
         this.cleanSizes = function() {
             this.config.mediaTypes.banner.sizes = this.filterSizes(this.config.mediaTypes.banner.sizes),
             this.config.gamSizes = this.filterSizes(this.config.gamSizes)
@@ -1011,7 +1012,7 @@
     }
     ));
     let f = {};
-    f.banner = g;
+    f.banner = h;
     const p = "lngtd-ad-wrapper-banner";
     const m = new function() {
         this.adUnits = [],
@@ -1229,7 +1230,6 @@
         this.lastStaticCall = null,
         this.displayInterval = null,
         this.refreshTimeout = null,
-        this.floorMultiplier = 1,
         this.filledImpressionCount = 0,
         this.allImpressionCount = 0,
         this.allowUnfilledRetries = "number" == typeof o.a.getConfig("account.allowUnfilledRetries") ? o.a.getConfig("account.allowUnfilledRetries") : 1,
@@ -1468,19 +1468,9 @@
                     const s = t.join("_")
                       , r = [o.g.getBrowser(), o.g.country].join("_")
                       , a = o.g.country;
-                    if (n = e.hasOwnProperty(s) ? e[s] : e.hasOwnProperty(r) ? e[r] : e.hasOwnProperty(a) ? e[a] : e.default,
-                    ["bookrags", "gradesaver"].includes(o.a.getConfig("account.name")) && !this.allImpressionCount)
-                        try {
-                            let e = o.g.flooringTestGroup;
-                            n = this.applyTestGroup(n, e)
-                        } catch (e) {
-                            console.error("Error occurred while applying test group:", e)
-                        }
+                    n = e.hasOwnProperty(s) ? e[s] : e.hasOwnProperty(r) ? e[r] : e.hasOwnProperty(a) ? e[a] : e.default,
                     n || (n = i)
                 } catch (e) {}
-            try {
-                n = this.floorMultiplier * n
-            } catch (e) {}
             if (t)
                 try {
                     let e = this.getHighestBid();
@@ -1496,14 +1486,6 @@
         ,
         this.applyTestGroup = function(e, t) {
             return 1 === t || 2 === t ? Math.round(e * t / 4 * 100) / 100 : 3 === t || 4 === t ? Math.round(e * t / 2 * 100) / 100 : Math.round(100 * e) / 100
-        }
-        ,
-        this.raiseFloors = function() {
-            this.floorMultiplier = 1
-        }
-        ,
-        this.lowerFloors = function() {
-            this.floorMultiplier = 1
         }
         ,
         this.currentAuctionId = null,
@@ -1599,13 +1581,18 @@
             e
         }
         ,
-        this.getSecondBid = function() {
-            let e = null;
+        this.getSecondBid = function(e=null) {
+            let t = null;
             try {
-                let t = window[n.c].getHighestCpmBids(this.config.code);
-                t.length > 0 && (e = t[0])
+                let i = this.getAllAvailableBidsInPool();
+                if (i.length > 0) {
+                    let n = e ? i.filter(t => t.bidderCode !== e) : i;
+                    n = e ? n.filter(e => e.responseTimestamp < this.displayed) : n,
+                    n.sort( (e, t) => t.originalCpm - e.originalCpm),
+                    n.length > 0 && (t = n[0])
+                }
             } catch (e) {}
-            return e
+            return t
         }
         ,
         this.timeSinceLastAuction = function() {
@@ -1650,7 +1637,6 @@
         this.startSecondChance = function() {
             const e = this;
             this.secondChanceTimeout || (Object(a.a)("Setting up second chance opportunity for", this.config.elementId),
-            this.lowerFloors(),
             this.secondChanceTimeout = setTimeout((function() {
                 Object(a.a)("Firing second chance opportunity for", e.config.elementId),
                 e.displayed = !1,
@@ -1807,11 +1793,10 @@
                 if (this.refreshed)
                     this.retireAndTrack(!0);
                 else {
-                    const e = ["out-of-page"];
+                    const e = ["out-of-page", "moment-display"];
                     this.allowUnfilledRetries && this.unfilledRetryAttempts < this.allowUnfilledRetries && -1 === window[n.b].secondChanceDisallowed.indexOf(this.config.code) && -1 === e.indexOf(this.config.unitType) ? (this.unfilledRetryAttempts += 1,
                     this.startSecondChance()) : this.retireAndTrack(!0)
                 }
-                this.lowerFloors(),
                 this.reset()
             }
         }
@@ -1834,7 +1819,7 @@
             let e = {};
             e.bidfloor = this.getFloorForEnv(null, !0);
             try {
-                let t = h.a.getPrebidUserIdsDefined();
+                let t = g.a.getPrebidUserIdsDefined();
                 e.user_ids = t.join("|")
             } catch (e) {}
             e.raw_impression_count = this.allImpressionCount;
@@ -1862,7 +1847,6 @@
             } catch (e) {
                 Object(a.a)("Error clearing targeting for ", this.config.elementId)
             }
-            this.raiseFloors(),
             this.filledImpressionCount += 1,
             this.allImpressionCount += 1,
             this.startViewabilityCheck();
@@ -1956,13 +1940,16 @@
                 try {
                     d.addomain = this.winningBid.adserverTargeting.hb_adomain,
                     d.creative_id = this.winningBid.adserverTargeting.hb_crid,
-                    d.ad_id = this.winningBid.adId
+                    d.ad_id = this.winningBid.adId,
+                    d.source = this.winningBid.source
                 } catch (e) {}
                 c = this.winningBid.requestId
             }
-            let g = this.getSecondBid();
-            g && (d.secondbid_bidder = g.bidderCode,
-            d.secondbid_bid = g.originalCpm),
+            if (this.winningBid) {
+                let e = this.getSecondBid(this.winningBid.bidderCode);
+                e && (d.secondbid_bidder = e.bidderCode,
+                d.secondbid_bid = e.originalCpm)
+            }
             "video" === this.media && (d.ad_length = this.currentAdDuration),
             this.confiantRefreshed && (d.confiant_refreshed = !0);
             try {
@@ -1975,25 +1962,25 @@
             this.winningBid ? d.bidfloor = this.getFloorForEnv(this.winningBid.auctionId, !0) : d.bidfloor = this.getFloorForEnv(this.currentAuctionId, !0),
             l.a.dropBidderCode && (d.dropped_bidder = l.a.dropBidderCode);
             try {
-                let e = h.a.getPrebidUserIdsDefined();
+                let e = g.a.getPrebidUserIdsDefined();
                 d.user_ids = e.join("|"),
-                h.a.currentEnrichTestId && (d.enrich_test = h.a.currentEnrichTestId),
+                g.a.currentEnrichTestId && (d.enrich_test = g.a.currentEnrichTestId),
                 d.enr_li = u.c.getLiModuleEnabled(),
-                d.enr_li_ids = h.a.getUserIdsForPartner("liveintent").join("|"),
+                d.enr_li_ids = g.a.getUserIdsForPartner("liveintent").join("|"),
                 d.enr_op = l.a.testGroups.optable,
-                d.enr_op_ids = h.a.getUserIdsForPartner("optable").join("|")
+                d.enr_op_ids = g.a.getUserIdsForPartner("optable").join("|")
             } catch (e) {}
             d.raw_impression_count = this.allImpressionCount,
             d = Object.assign({}, d, t),
             d = Object.assign({}, d, u.c.getExtraLogging());
-            let f = {};
-            window[n.b].accountFunctions.extraLogging && "function" == typeof window[n.b].accountFunctions.extraLogging && (f = window[n.b].accountFunctions.extraLogging()),
-            d = Object.assign({}, d, f);
+            let h = {};
+            window[n.b].accountFunctions.extraLogging && "function" == typeof window[n.b].accountFunctions.extraLogging && (h = window[n.b].accountFunctions.extraLogging()),
+            d = Object.assign({}, d, h);
             try {
                 let e = this.getAllAvailableBidsInPool().map(e => e.requestId);
                 d.pool_bids = e.join("|")
             } catch (e) {}
-            let p = {
+            let f = {
                 winning_bidder: e,
                 winning_bid: r,
                 unit: this.config.gamPath,
@@ -2003,7 +1990,7 @@
                 encrypted_bid: i,
                 uid: c
             };
-            Object(a.e)("impression", Object(a.b)(), p, d)
+            Object(a.e)("impression", Object(a.b)(), f, d)
         }
         ,
         this.matchHeightWithParentOrVerticallyCenter = function(e, t) {
@@ -2150,11 +2137,11 @@
 , function(e, t, i) {
     "use strict";
     i.d(t, "p", (function() {
-        return h
+        return g
     }
     )),
     i.d(t, "r", (function() {
-        return g
+        return h
     }
     )),
     i.d(t, "s", (function() {
@@ -2206,7 +2193,7 @@
     }
     )),
     i.d(t, "f", (function() {
-        return x
+        return E
     }
     )),
     i.d(t, "b", (function() {
@@ -2214,7 +2201,7 @@
     }
     )),
     i.d(t, "c", (function() {
-        return E
+        return x
     }
     )),
     i.d(t, "e", (function() {
@@ -2250,8 +2237,8 @@
       , c = i(7)
       , l = i(6);
     const u = new Event("userInteraction")
-      , h = new Event("pauseRefreshUserInteraction")
-      , g = new Event("restartRefresh");
+      , g = new Event("pauseRefreshUserInteraction")
+      , h = new Event("restartRefresh");
     function f() {
         Object(n.a)("Scroll handler called");
         let e = document.documentElement.scrollTop || document.body.scrollTop;
@@ -2340,8 +2327,10 @@
         Object(n.a)("bid response", o, i, a, s, e);
         let d = r.c.getUnitFromCode(i);
         if (d) {
-            let i = d.getFloorForEnv(o, !0);
-            if (i && s < i)
+            let i = d.getFloorForEnv(o, !0)
+              , r = parseFloat(i.toPrecision(4))
+              , a = parseFloat(s.toPrecision(4));
+            if (i && a < r)
                 return Object(n.c)(e),
                 void d.logNoBidActivity(t);
             try {
@@ -2388,7 +2377,7 @@
         }
         ))
     }
-    function x(e) {
+    function E(e) {
         Object(n.a)("bid error", e.error, e.bidderRequest),
         e.bidderRequest.bids.forEach((function(t) {
             try {
@@ -2420,7 +2409,7 @@
         };
         Object(n.e)("ad_render_failure", Object(n.b)(), null, t)
     }
-    function E(e) {
+    function x(e) {
         Object(n.a)("ad render success", e.bid, e.adId);
         const t = {
             uid: e.bid.requestId,
@@ -2531,7 +2520,7 @@
             })),
             e.isEmpty)
                 u.winningBid && o.a.getConfig("account.deliverPrebidIfNoGAMFill") ? a.a.renderPrebidWinningBidWithoutGAM(u.winningBid, i) : (u.handleUnfilledImpression(),
-                (Object(d.d)("taglesstest") || c.b.iabConsent.allRejected) && (l.a.makeTaglessRequest(u.config, i),
+                c.b.allowTaglessOnUnfilledAndNoConsent && (Object(d.d)("taglesstest") || c.b.iabConsent.allRejected) && (l.a.makeTaglessRequest(u.config, i, null),
                 u.config.refresh = !1));
             else {
                 try {
@@ -2565,7 +2554,7 @@
       , c = i(8);
     const l = new function() {
         this.initialized = !1,
-        this.slots = [],
+        this.slots = {},
         this.loaded = !1,
         this.logAllRequests = !1,
         this.additionalTargeting = {},
@@ -2740,6 +2729,48 @@
                 t.auctionAndCallGPTInterstitial(e, i))
             }
             ))
+        }
+        ,
+        this.gamingInterstitials = {},
+        this.defineInterstitialGamingUnit = function(e) {
+            let t = this;
+            googletag.cmd.push((function() {
+                let i = googletag.defineOutOfPageSlot(e.config.gamPath, googletag.enums.OutOfPageFormat.GAME_MANUAL_INTERSTITIAL).addService(googletag.pubads());
+                i && (console.log("H5 INTERSTITIAL DEFINED", e.config.elementId),
+                t.gamingInterstitials[e.config.elementId] = i,
+                googletag.display(i))
+            }
+            ))
+        }
+        ,
+        this.triggerInterstitialGamingUnit = function(e, t) {
+            const i = this.gamingInterstitials[e.config.elementId];
+            let n = setTimeout((function() {
+                t()
+            }
+            ), 2500);
+            i ? googletag.cmd.push((function() {
+                googletag.pubads().addEventListener("gameManualInterstitialSlotReady", t => {
+                    console.log("H5 INTERSTITIAL READY", e.config.elementId),
+                    i === t.slot && (clearTimeout(n),
+                    t.makeGameManualInterstitialVisible())
+                }
+                ),
+                googletag.pubads().addEventListener("gameManualInterstitialSlotClosed", (function() {
+                    console.log("H5 INTERSTITIAL CLOSED", e.config.elementId),
+                    clearTimeout(n),
+                    t()
+                }
+                )),
+                googletag.pubads().addEventListener("slotRenderEnded", (function(o) {
+                    i === o.slot && o.isEmpty && (clearTimeout(n),
+                    console.log("H5 INTERSTITIAL DID NOT FILL", e.config.elementId),
+                    t())
+                }
+                )),
+                googletag.pubads().refresh([i])
+            }
+            )) : t()
         }
         ,
         this.auctionAndCallGPTInterstitial = function(e, t) {
@@ -2921,21 +2952,27 @@
             this.setAdditionalSlotTargeting(e.config.elementId)
         }
         ,
-        this.makeTaglessRequest = function(e, t) {
+        this.makeTaglessRequest = function(e, t, i) {
             Object(s.a)("Making tagless call to GAM for:", t, e);
-            let i = document.getElementById(t);
-            Object(s.a)("Tagless will fill", i);
-            let n = {
+            let n = document.getElementById(t);
+            Object(s.a)("Tagless will fill", n);
+            let o = {
+                tagless: !0
+            };
+            i && "object" == typeof i && (o = Object.assign({}, o, i));
+            const r = new URLSearchParams(o).toString()
+              , a = encodeURIComponent(r);
+            let d = {
                 adunit: e.gamPath,
                 width: e.gamSizes[0][0],
                 height: e.gamSizes[0][1],
-                targeting: "tagless%3Dtrue"
+                targeting: a
             };
             !function(e) {
                 let t = Math.floor(1e8 * Math.random());
                 e.requestUrl = "https://securepubads.g.doubleclick.net/gampad/adx?iu=" + e.adunit + "&sz=" + e.width + "x" + e.height + "&c=" + t + "&tile=1&d_imp=1",
                 e.targeting && (e.requestUrl = e.requestUrl + "&t=" + e.targeting)
-            }(n),
+            }(d),
             function(e) {
                 if (e.requestUrl) {
                     const t = new XMLHttpRequest;
@@ -2948,8 +2985,8 @@
                             t.style.width = e.width + "px",
                             t.style.height = e.height + "px";
                             try {
-                                i.innerHTML = "",
-                                i.appendChild(t),
+                                n.innerHTML = "",
+                                n.appendChild(t),
                                 t.contentWindow.document.open(),
                                 t.contentWindow.document.write(e.adData),
                                 t.contentWindow.document.close()
@@ -2959,7 +2996,7 @@
                         }(e))
                     }
                 }
-            }(n)
+            }(d)
         }
     }
 }
@@ -2990,6 +3027,7 @@
             gpp: "",
             allRejected: !1
         },
+        this.allowTaglessOnUnfilledAndNoConsent = !1,
         this.initialize = function() {
             let e = window.sessionStorage.getItem("lngtd-iabconsent");
             e && (this.iabConsent = JSON.parse(e))
@@ -3102,6 +3140,7 @@
     ;
     const d = new function() {
         this.stubsLoaded = !1,
+        this.getConsentCallback = null,
         this.loadStubs = function() {
             if (!this.stubsLoaded) {
                 function e(t) {
@@ -3351,7 +3390,19 @@
                     usnat: {
                         includeUspApi: !0
                     },
-                    gdpr: {}
+                    gdpr: {},
+                    events: {
+                        onConsentReady: this.getConsentCallback && "function" == typeof this.getConsentCallback ? (e, t, i, n) => {
+                            if (n.applies) {
+                                const t = t => {
+                                    window._sp_[e].loadPrivacyManagerModal(t)
+                                }
+                                ;
+                                this.getConsentCallback(t, e)
+                            }
+                        }
+                        : () => {}
+                    }
                 }
             },
             Object(s.j)("//cdn.privacy-mgmt.com/unified/wrapperMessagingWithoutDetection.js", (function() {}
@@ -3843,7 +3894,8 @@
                         medianet: !0,
                         sovrn: !0,
                         nonId: !0,
-                        thetradedesk: !0
+                        thetradedesk: !0,
+                        triplelift: !0
                     }
                 },
                 storage: {
@@ -4075,6 +4127,10 @@
                 gvlid: 98
             }, {
                 bidder: "appnexus",
+                alias: "groupm",
+                gvlid: 98
+            }, {
+                bidder: "appnexus",
                 alias: "venatus",
                 gvlid: 26
             }, {
@@ -4096,9 +4152,18 @@
             }, {
                 bidder: "smartadserver",
                 alias: "bulletin"
-            }].map( ({bidder: e, alias: t, gvlid: i}) => o.a.isBidderPresent(t) ? () => window[a.c].aliasBidder(e, t, i ? {
+            }, {
+                bidder: "appnexus",
+                alias: "weborama",
+                gvlid: 284
+            }, {
+                bidder: "appnexus",
+                alias: "refinery89",
+                gvlid: 1264
+            }].map( ({bidder: e, alias: t, gvlid: i}) => o.a.isBidderPresent(t) ? ("groupm" === t && (t = "groupm-xandr"),
+            () => window[a.c].aliasBidder(e, t, i ? {
                 gvlid: i
-            } : void 0) : () => {}
+            } : void 0)) : () => {}
             );
             window[a.c].que.push((function() {
                 e.forEach(e => e())
@@ -4121,8 +4186,6 @@
         ,
         this.addAdUnit = function(e) {
             window[a.c].que.push((function() {
-                // @TODO remove next line - testing purposes only. I believe the medscape bidder would be added from the UI?
-                // e.bids.push({bidder: 'medscape', params: {placementId: 110126}})
                 window[a.c].addAdUnits([e])
             }
             ))
@@ -4383,8 +4446,8 @@
                             sdk: "aps_video_player",
                             video: {
                                 ptype: e.config.mediaTypes.video.placement,
-                                w: e.config.mediaTypes.video.playerSize[0],
-                                h: e.config.mediaTypes.video.playerSize[1]
+                                w: e.config.mediaTypes.video.playerSize[0][0],
+                                h: e.config.mediaTypes.video.playerSize[0][1]
                             }
                         }
                     }
@@ -4536,11 +4599,11 @@
             window.optable = window.optable || {
                 cmd: []
             },
-            "vs_test" === this.settings.siteSlug ? window.optable.site = "vs-test" : "vs_spin" === this.settings.siteSlug ? window.optable.site = "vs-spin" : window.optable.site = this.settings.siteSlug
+            window.optable.site = this.settings.siteSlug
         }
         ,
         this.shouldRun = function() {
-            return ["US"].indexOf(n.g.country) > -1 && d.a.testGroups.optable
+            return ["US", "CA"].indexOf(n.g.country) > -1 && d.a.testGroups.optable
         }
         ,
         this.preCMP = function() {
@@ -4633,7 +4696,7 @@
     var n;
     !function(o, s) {
         "use strict";
-        var r, a = "model", d = "name", c = "type", l = "vendor", u = "version", h = "mobile", g = "tablet", f = "smarttv", p = ["brands", "fullVersionList", h, a, "platform", "platformVersion", "architecture", "formFactor", "bitness"], m = void 0 !== o, b = m && o.navigator ? o.navigator : void 0, w = b && b.userAgentData ? b.userAgentData : void 0, y = function(e) {
+        var r, a = "model", d = "name", c = "type", l = "vendor", u = "version", g = "mobile", h = "tablet", f = "smarttv", p = ["brands", "fullVersionList", g, a, "platform", "platformVersion", "architecture", "formFactor", "bitness"], m = void 0 !== o, b = m && o.navigator ? o.navigator : void 0, w = b && b.userAgentData ? b.userAgentData : void 0, y = function(e) {
             for (var t = {}, i = 0; i < e.length; i++)
                 t[e[i].toUpperCase()] = e[i];
             return t
@@ -4675,13 +4738,13 @@
             return this
         }, T = function(e, t) {
             return A(t) ? t.replace(e, "") : t
-        }, x = function(e) {
+        }, E = function(e) {
             return T(/\\?\"/g, e)
         }, P = function(e, t) {
             if (A(e))
                 return e = T(/^\s\s*/, e),
                 void 0 === t ? e : e.substring(0, 500)
-        }, E = function(e, t) {
+        }, x = function(e, t) {
             if (e && t)
                 for (var i, n, o, s, r, a, d = 0; d < t.length && !r; ) {
                     var c = t[d]
@@ -4725,7 +4788,7 @@
         }, B = {
             browser: [[/\b(?:crmo|crios)\/([\w\.]+)/i], [u, [d, "Mobile Chrome"]], [/edg(?:e|ios|a)?\/([\w\.]+)/i], [u, [d, "Edge"]], [/(opera mini)\/([-\w\.]+)/i, /(opera [mobiletab]{3,6})\b.+version\/([-\w\.]+)/i, /(opera)(?:.+version\/|[\/ ]+)([\w\.]+)/i], [d, u], [/opios[\/ ]+([\w\.]+)/i], [u, [d, "Opera Mini"]], [/\bop(?:rg)?x\/([\w\.]+)/i], [u, [d, "Opera GX"]], [/\bopr\/([\w\.]+)/i], [u, [d, "Opera"]], [/\bb[ai]*d(?:uhd|[ub]*[aekoprswx]{5,6})[\/ ]?([\w\.]+)/i], [u, [d, "Baidu"]], [/(kindle)\/([\w\.]+)/i, /(lunascape|maxthon|netfront|jasmine|blazer)[\/ ]?([\w\.]*)/i, /(avant|iemobile|slim)\s?(?:browser)?[\/ ]?([\w\.]*)/i, /(?:ms|\()(ie) ([\w\.]+)/i, /(flock|rockmelt|midori|epiphany|silk|skyfire|ovibrowser|bolt|iron|vivaldi|iridium|phantomjs|bowser|quark|qupzilla|falkon|rekonq|puffin|brave|whale(?!.+naver)|qqbrowserlite|qq|duckduckgo)\/([-\w\.]+)/i, /(heytap|ovi)browser\/([\d\.]+)/i, /(weibo)__([\d\.]+)/i], [d, u], [/(?:\buc? ?browser|(?:juc.+)ucweb)[\/ ]?([\w\.]+)/i], [u, [d, "UCBrowser"]], [/microm.+\bqbcore\/([\w\.]+)/i, /\bqbcore\/([\w\.]+).+microm/i, /micromessenger\/([\w\.]+)/i], [u, [d, "WeChat"]], [/konqueror\/([\w\.]+)/i], [u, [d, "Konqueror"]], [/trident.+rv[: ]([\w\.]{1,9})\b.+like gecko/i], [u, [d, "IE"]], [/ya(?:search)?browser\/([\w\.]+)/i], [u, [d, "Yandex"]], [/slbrowser\/([\w\.]+)/i], [u, [d, "Smart Lenovo Browser"]], [/(avast|avg)\/([\w\.]+)/i], [[d, /(.+)/, "$1 Secure Browser"], u], [/\bfocus\/([\w\.]+)/i], [u, [d, "Firefox Focus"]], [/\bopt\/([\w\.]+)/i], [u, [d, "Opera Touch"]], [/coc_coc\w+\/([\w\.]+)/i], [u, [d, "Coc Coc"]], [/dolfin\/([\w\.]+)/i], [u, [d, "Dolphin"]], [/coast\/([\w\.]+)/i], [u, [d, "Opera Coast"]], [/miuibrowser\/([\w\.]+)/i], [u, [d, "MIUI Browser"]], [/fxios\/([\w\.-]+)/i], [u, [d, "Mobile Firefox"]], [/\bqihu|(qi?ho?o?|360)browser/i], [[d, "360 Browser"]], [/(oculus|sailfish|huawei|vivo)browser\/([\w\.]+)/i], [[d, /(.+)/, "$1 Browser"], u], [/samsungbrowser\/([\w\.]+)/i], [u, [d, "Samsung Internet"]], [/(comodo_dragon)\/([\w\.]+)/i], [[d, /_/g, " "], u], [/metasr[\/ ]?([\d\.]+)/i], [u, [d, "Sogou Explorer"]], [/(sogou)mo\w+\/([\d\.]+)/i], [[d, "Sogou Mobile"], u], [/(electron)\/([\w\.]+) safari/i, /(tesla)(?: qtcarbrowser|\/(20\d\d\.[-\w\.]+))/i, /m?(qqbrowser|2345Explorer)[\/ ]?([\w\.]+)/i], [d, u], [/(lbbrowser)/i, /\[(linkedin)app\]/i], [d], [/((?:fban\/fbios|fb_iab\/fb4a)(?!.+fbav)|;fbav\/([\w\.]+);)/i], [[d, "Facebook"], u], [/(Klarna)\/([\w\.]+)/i, /(kakao(?:talk|story))[\/ ]([\w\.]+)/i, /(naver)\(.*?(\d+\.[\w\.]+).*\)/i, /safari (line)\/([\w\.]+)/i, /\b(line)\/([\w\.]+)\/iab/i, /(alipay)client\/([\w\.]+)/i, /(chromium|instagram|snapchat)[\/ ]([-\w\.]+)/i], [d, u], [/\bgsa\/([\w\.]+) .*safari\//i], [u, [d, "GSA"]], [/musical_ly(?:.+app_?version\/|_)([\w\.]+)/i], [u, [d, "TikTok"]], [/headlesschrome(?:\/([\w\.]+)| )/i], [u, [d, "Chrome Headless"]], [/ wv\).+(chrome)\/([\w\.]+)/i], [[d, "Chrome WebView"], u], [/droid.+ version\/([\w\.]+)\b.+(?:mobile safari|safari)/i], [u, [d, "Android Browser"]], [/chrome\/([\w\.]+) mobile/i], [u, [d, "Mobile Chrome"]], [/(chrome|omniweb|arora|[tizenoka]{5} ?browser)\/v?([\w\.]+)/i], [d, u], [/version\/([\w\.\,]+) .*mobile(?:\/\w+ | ?)safari/i], [u, [d, "Mobile Safari"]], [/iphone .*mobile(?:\/\w+ | ?)safari/i], [[d, "Mobile Safari"]], [/version\/([\w\.\,]+) .*(safari)/i], [u, d], [/webkit.+?(mobile ?safari|safari)(\/[\w\.]+)/i], [d, [u, "1"]], [/(webkit|khtml)\/([\w\.]+)/i], [d, u], [/(?:mobile|tablet);.*(firefox)\/([\w\.-]+)/i], [[d, "Mobile Firefox"], u], [/(navigator|netscape\d?)\/([-\w\.]+)/i], [[d, "Netscape"], u], [/mobile vr; rv:([\w\.]+)\).+firefox/i], [u, [d, "Firefox Reality"]], [/ekiohf.+(flow)\/([\w\.]+)/i, /(swiftfox)/i, /(icedragon|iceweasel|camino|chimera|fennec|maemo browser|minimo|conkeror|klar)[\/ ]?([\w\.\+]+)/i, /(seamonkey|k-meleon|icecat|iceape|firebird|phoenix|palemoon|basilisk|waterfox)\/([-\w\.]+)$/i, /(firefox)\/([\w\.]+)/i, /(mozilla)\/([\w\.]+) .+rv\:.+gecko\/\d+/i, /(polaris|lynx|dillo|icab|doris|amaya|w3m|netsurf|sleipnir|obigo|mosaic|(?:go|ice|up)[\. ]?browser)[-\/ ]?v?([\w\.]+)/i, /(links) \(([\w\.]+)/i, /panasonic;(viera)/i], [d, u], [/(cobalt)\/([\w\.]+)/i], [d, [u, /[^\d\.]+./, ""]]],
             cpu: [[/\b(?:(amd|x|x86[-_]?|wow|win)64)\b/i], [["architecture", "amd64"]], [/(ia32(?=;))/i, /((?:i[346]|x)86)[;\)]/i], [["architecture", "ia32"]], [/\b(aarch64|arm(v?8e?l?|_?64))\b/i], [["architecture", "arm64"]], [/\b(arm(?:v[67])?ht?n?[fl]p?)\b/i], [["architecture", "armhf"]], [/windows (ce|mobile); ppc;/i], [["architecture", "arm"]], [/((?:ppc|powerpc)(?:64)?)(?: mac|;|\))/i], [["architecture", /ower/, "", O]], [/(sun4\w)[;\)]/i], [["architecture", "sparc"]], [/((?:avr32|ia64(?=;))|68k(?=\))|\barm(?=v(?:[1-7]|[5-7]1)l?|;|eabi)|(?=atmel )avr|(?:irix|mips|sparc)(?:64)?\b|pa-risc)/i], [["architecture", O]]],
-            device: [[/\b(sch-i[89]0\d|shw-m380s|sm-[ptx]\w{2,4}|gt-[pn]\d{2,4}|sgh-t8[56]9|nexus 10)/i], [a, [l, "Samsung"], [c, g]], [/\b((?:s[cgp]h|gt|sm)-\w+|sc[g-]?[\d]+a?|galaxy nexus)/i, /samsung[- ]([-\w]+)/i, /sec-(sgh\w+)/i], [a, [l, "Samsung"], [c, h]], [/(?:\/|\()(ip(?:hone|od)[\w, ]*)(?:\/|;)/i], [a, [l, "Apple"], [c, h]], [/\((ipad);[-\w\),; ]+apple/i, /applecoremedia\/[\w\.]+ \((ipad)/i, /\b(ipad)\d\d?,\d\d?[;\]].+ios/i], [a, [l, "Apple"], [c, g]], [/(macintosh);/i], [a, [l, "Apple"]], [/\b(sh-?[altvz]?\d\d[a-ekm]?)/i], [a, [l, "Sharp"], [c, h]], [/\b((?:ag[rs][23]?|bah2?|sht?|btv)-a?[lw]\d{2})\b(?!.+d\/s)/i], [a, [l, "Huawei"], [c, g]], [/(?:huawei|honor)([-\w ]+)[;\)]/i, /\b(nexus 6p|\w{2,4}e?-[atu]?[ln][\dx][012359c][adn]?)\b(?!.+d\/s)/i], [a, [l, "Huawei"], [c, h]], [/\b(poco[\w ]+|m2\d{3}j\d\d[a-z]{2})(?: bui|\))/i, /\b; (\w+) build\/hm\1/i, /\b(hm[-_ ]?note?[_ ]?(?:\d\w)?) bui/i, /\b(redmi[\-_ ]?(?:note|k)?[\w_ ]+)(?: bui|\))/i, /oid[^\)]+; (m?[12][0-389][01]\w{3,6}[c-y])( bui|; wv|\))/i, /\b(mi[-_ ]?(?:a\d|one|one[_ ]plus|note lte|max|cc)?[_ ]?(?:\d?\w?)[_ ]?(?:plus|se|lite)?)(?: bui|\))/i], [[a, /_/g, " "], [l, "Xiaomi"], [c, h]], [/oid[^\)]+; (2\d{4}(283|rpbf)[cgl])( bui|\))/i, /\b(mi[-_ ]?(?:pad)(?:[\w_ ]+))(?: bui|\))/i], [[a, /_/g, " "], [l, "Xiaomi"], [c, g]], [/; (\w+) bui.+ oppo/i, /\b(cph[12]\d{3}|p(?:af|c[al]|d\w|e[ar])[mt]\d0|x9007|a101op)\b/i], [a, [l, "OPPO"], [c, h]], [/vivo (\w+)(?: bui|\))/i, /\b(v[12]\d{3}\w?[at])(?: bui|;)/i], [a, [l, "Vivo"], [c, h]], [/\b(rmx[1-3]\d{3})(?: bui|;|\))/i], [a, [l, "Realme"], [c, h]], [/\b(milestone|droid(?:[2-4x]| (?:bionic|x2|pro|razr))?:?( 4g)?)\b[\w ]+build\//i, /\bmot(?:orola)?[- ](\w*)/i, /((?:moto[\w\(\) ]+|xt\d{3,4}|nexus 6)(?= bui|\)))/i], [a, [l, "Motorola"], [c, h]], [/\b(mz60\d|xoom[2 ]{0,2}) build\//i], [a, [l, "Motorola"], [c, g]], [/((?=lg)?[vl]k\-?\d{3}) bui| 3\.[-\w; ]{10}lg?-([06cv9]{3,4})/i], [a, [l, "LG"], [c, g]], [/(lm(?:-?f100[nv]?|-[\w\.]+)(?= bui|\))|nexus [45])/i, /\blg[-e;\/ ]+((?!browser|netcast|android tv)\w+)/i, /\blg-?([\d\w]+) bui/i], [a, [l, "LG"], [c, h]], [/(ideatab[-\w ]+)/i, /lenovo ?(s[56]000[-\w]+|tab(?:[\w ]+)|yt[-\d\w]{6}|tb[-\d\w]{6})/i], [a, [l, "Lenovo"], [c, g]], [/(?:maemo|nokia).*(n900|lumia \d+)/i, /nokia[-_ ]?([-\w\.]*)/i], [[a, /_/g, " "], [l, "Nokia"], [c, h]], [/(pixel c)\b/i], [a, [l, "Google"], [c, g]], [/droid.+; (pixel[\daxl ]{0,6})(?: bui|\))/i], [a, [l, "Google"], [c, h]], [/droid.+ (a?\d[0-2]{2}so|[c-g]\d{4}|so[-gl]\w+|xq-a\w[4-7][12])(?= bui|\).+chrome\/(?![1-6]{0,1}\d\.))/i], [a, [l, "Sony"], [c, h]], [/sony tablet [ps]/i, /\b(?:sony)?sgp\w+(?: bui|\))/i], [[a, "Xperia Tablet"], [l, "Sony"], [c, g]], [/ (kb2005|in20[12]5|be20[12][59])\b/i, /(?:one)?(?:plus)? (a\d0\d\d)(?: b|\))/i], [a, [l, "OnePlus"], [c, h]], [/(alexa)webm/i, /(kf[a-z]{2}wi|aeo[c-r]{2})( bui|\))/i, /(kf[a-z]+)( bui|\)).+silk\//i], [a, [l, "Amazon"], [c, g]], [/((?:sd|kf)[0349hijorstuw]+)( bui|\)).+silk\//i], [[a, /(.+)/g, "Fire Phone $1"], [l, "Amazon"], [c, h]], [/(playbook);[-\w\),; ]+(rim)/i], [a, l, [c, g]], [/\b((?:bb[a-f]|st[hv])100-\d)/i, /\(bb10; (\w+)/i], [a, [l, "BlackBerry"], [c, h]], [/(?:\b|asus_)(transfo[prime ]{4,10} \w+|eeepc|slider \w+|nexus 7|padfone|p00[cj])/i], [a, [l, "ASUS"], [c, g]], [/ (z[bes]6[027][012][km][ls]|zenfone \d\w?)\b/i], [a, [l, "ASUS"], [c, h]], [/(nexus 9)/i], [a, [l, "HTC"], [c, g]], [/(htc)[-;_ ]{1,2}([\w ]+(?=\)| bui)|\w+)/i, /(zte)[- ]([\w ]+?)(?: bui|\/|\))/i, /(alcatel|geeksphone|nexian|panasonic(?!(?:;|\.))|sony(?!-bra))[-_ ]?([-\w]*)/i], [l, [a, /_/g, " "], [c, h]], [/droid.+; ([ab][1-7]-?[0178a]\d\d?)/i], [a, [l, "Acer"], [c, g]], [/droid.+; (m[1-5] note) bui/i, /\bmz-([-\w]{2,})/i], [a, [l, "Meizu"], [c, h]], [/; ((?:power )?armor(?:[\w ]{0,8}))(?: bui|\))/i], [a, [l, "Ulefone"], [c, h]], [/(blackberry|benq|palm(?=\-)|sonyericsson|acer|asus|dell|meizu|motorola|polytron|infinix|tecno)[-_ ]?([-\w]*)/i, /(hp) ([\w ]+\w)/i, /(asus)-?(\w+)/i, /(microsoft); (lumia[\w ]+)/i, /(lenovo)[-_ ]?([-\w]+)/i, /(jolla)/i, /(oppo) ?([\w ]+) bui/i], [l, a, [c, h]], [/(kobo)\s(ereader|touch)/i, /(archos) (gamepad2?)/i, /(hp).+(touchpad(?!.+tablet)|tablet)/i, /(kindle)\/([\w\.]+)/i], [l, a, [c, g]], [/(surface duo)/i], [a, [l, "Microsoft"], [c, g]], [/droid [\d\.]+; (fp\du?)(?: b|\))/i], [a, [l, "Fairphone"], [c, h]], [/(shield[\w ]+) b/i], [a, [l, "Nvidia"], [c, g]], [/(sprint) (\w+)/i], [l, a, [c, h]], [/(kin\.[onetw]{3})/i], [[a, /\./g, " "], [l, "Microsoft"], [c, h]], [/droid.+; ([c6]+|et5[16]|mc[239][23]x?|vc8[03]x?)\)/i], [a, [l, "Zebra"], [c, g]], [/droid.+; (ec30|ps20|tc[2-8]\d[kx])\)/i], [a, [l, "Zebra"], [c, h]], [/smart-tv.+(samsung)/i], [l, [c, f]], [/hbbtv.+maple;(\d+)/i], [[a, /^/, "SmartTV"], [l, "Samsung"], [c, f]], [/(nux; netcast.+smarttv|lg (netcast\.tv-201\d|android tv))/i], [[l, "LG"], [c, f]], [/(apple) ?tv/i], [l, [a, "Apple TV"], [c, f]], [/crkey/i], [[a, "Chromecast"], [l, "Google"], [c, f]], [/droid.+aft(\w+)( bui|\))/i], [a, [l, "Amazon"], [c, f]], [/\(dtv[\);].+(aquos)/i, /(aquos-tv[\w ]+)\)/i], [a, [l, "Sharp"], [c, f]], [/(bravia[\w ]+)( bui|\))/i], [a, [l, "Sony"], [c, f]], [/(mitv-\w{5}) bui/i], [a, [l, "Xiaomi"], [c, f]], [/Hbbtv.*(technisat) (.*);/i], [l, a, [c, f]], [/\b(roku)[\dx]*[\)\/]((?:dvp-)?[\d\.]*)/i, /hbbtv\/\d+\.\d+\.\d+ +\([\w\+ ]*; *([\w\d][^;]*);([^;]*)/i], [[l, P], [a, P], [c, f]], [/\b(android tv|smart[- ]?tv|opera tv|tv; rv:)\b/i], [[c, f]], [/(ouya)/i, /(nintendo) (\w+)/i], [l, a, [c, "console"]], [/droid.+; (shield) bui/i], [a, [l, "Nvidia"], [c, "console"]], [/(playstation \w+)/i], [a, [l, "Sony"], [c, "console"]], [/\b(xbox(?: one)?(?!; xbox))[\); ]/i], [a, [l, "Microsoft"], [c, "console"]], [/((pebble))app/i], [l, a, [c, "wearable"]], [/(watch)(?: ?os[,\/]|\d,\d\/)[\d\.]+/i], [a, [l, "Apple"], [c, "wearable"]], [/droid.+; (glass) \d/i], [a, [l, "Google"], [c, "wearable"]], [/droid.+; (wt63?0{2,3})\)/i], [a, [l, "Zebra"], [c, "wearable"]], [/(quest( 2| pro)?)/i], [a, [l, "Facebook"], [c, "wearable"]], [/(tesla)(?: qtcarbrowser|\/[-\w\.]+)/i], [l, [c, "embedded"]], [/(aeobc)\b/i], [a, [l, "Amazon"], [c, "embedded"]], [/droid .+?; ([^;]+?)(?: bui|; wv\)|\) applew).+? mobile safari/i], [a, [c, h]], [/droid .+?; ([^;]+?)(?: bui|\) applew).+?(?! mobile) safari/i], [a, [c, g]], [/\b((tablet|tab)[;\/]|focus\/\d(?!.+mobile))/i], [[c, g]], [/(phone|mobile(?:[;\/]| [ \w\/\.]*safari)|pda(?=.+windows ce))/i], [[c, h]], [/(android[-\w\. ]{0,9});.+buil/i], [a, [l, "Generic"]]],
+            device: [[/\b(sch-i[89]0\d|shw-m380s|sm-[ptx]\w{2,4}|gt-[pn]\d{2,4}|sgh-t8[56]9|nexus 10)/i], [a, [l, "Samsung"], [c, h]], [/\b((?:s[cgp]h|gt|sm)-\w+|sc[g-]?[\d]+a?|galaxy nexus)/i, /samsung[- ]([-\w]+)/i, /sec-(sgh\w+)/i], [a, [l, "Samsung"], [c, g]], [/(?:\/|\()(ip(?:hone|od)[\w, ]*)(?:\/|;)/i], [a, [l, "Apple"], [c, g]], [/\((ipad);[-\w\),; ]+apple/i, /applecoremedia\/[\w\.]+ \((ipad)/i, /\b(ipad)\d\d?,\d\d?[;\]].+ios/i], [a, [l, "Apple"], [c, h]], [/(macintosh);/i], [a, [l, "Apple"]], [/\b(sh-?[altvz]?\d\d[a-ekm]?)/i], [a, [l, "Sharp"], [c, g]], [/\b((?:ag[rs][23]?|bah2?|sht?|btv)-a?[lw]\d{2})\b(?!.+d\/s)/i], [a, [l, "Huawei"], [c, h]], [/(?:huawei|honor)([-\w ]+)[;\)]/i, /\b(nexus 6p|\w{2,4}e?-[atu]?[ln][\dx][012359c][adn]?)\b(?!.+d\/s)/i], [a, [l, "Huawei"], [c, g]], [/\b(poco[\w ]+|m2\d{3}j\d\d[a-z]{2})(?: bui|\))/i, /\b; (\w+) build\/hm\1/i, /\b(hm[-_ ]?note?[_ ]?(?:\d\w)?) bui/i, /\b(redmi[\-_ ]?(?:note|k)?[\w_ ]+)(?: bui|\))/i, /oid[^\)]+; (m?[12][0-389][01]\w{3,6}[c-y])( bui|; wv|\))/i, /\b(mi[-_ ]?(?:a\d|one|one[_ ]plus|note lte|max|cc)?[_ ]?(?:\d?\w?)[_ ]?(?:plus|se|lite)?)(?: bui|\))/i], [[a, /_/g, " "], [l, "Xiaomi"], [c, g]], [/oid[^\)]+; (2\d{4}(283|rpbf)[cgl])( bui|\))/i, /\b(mi[-_ ]?(?:pad)(?:[\w_ ]+))(?: bui|\))/i], [[a, /_/g, " "], [l, "Xiaomi"], [c, h]], [/; (\w+) bui.+ oppo/i, /\b(cph[12]\d{3}|p(?:af|c[al]|d\w|e[ar])[mt]\d0|x9007|a101op)\b/i], [a, [l, "OPPO"], [c, g]], [/vivo (\w+)(?: bui|\))/i, /\b(v[12]\d{3}\w?[at])(?: bui|;)/i], [a, [l, "Vivo"], [c, g]], [/\b(rmx[1-3]\d{3})(?: bui|;|\))/i], [a, [l, "Realme"], [c, g]], [/\b(milestone|droid(?:[2-4x]| (?:bionic|x2|pro|razr))?:?( 4g)?)\b[\w ]+build\//i, /\bmot(?:orola)?[- ](\w*)/i, /((?:moto[\w\(\) ]+|xt\d{3,4}|nexus 6)(?= bui|\)))/i], [a, [l, "Motorola"], [c, g]], [/\b(mz60\d|xoom[2 ]{0,2}) build\//i], [a, [l, "Motorola"], [c, h]], [/((?=lg)?[vl]k\-?\d{3}) bui| 3\.[-\w; ]{10}lg?-([06cv9]{3,4})/i], [a, [l, "LG"], [c, h]], [/(lm(?:-?f100[nv]?|-[\w\.]+)(?= bui|\))|nexus [45])/i, /\blg[-e;\/ ]+((?!browser|netcast|android tv)\w+)/i, /\blg-?([\d\w]+) bui/i], [a, [l, "LG"], [c, g]], [/(ideatab[-\w ]+)/i, /lenovo ?(s[56]000[-\w]+|tab(?:[\w ]+)|yt[-\d\w]{6}|tb[-\d\w]{6})/i], [a, [l, "Lenovo"], [c, h]], [/(?:maemo|nokia).*(n900|lumia \d+)/i, /nokia[-_ ]?([-\w\.]*)/i], [[a, /_/g, " "], [l, "Nokia"], [c, g]], [/(pixel c)\b/i], [a, [l, "Google"], [c, h]], [/droid.+; (pixel[\daxl ]{0,6})(?: bui|\))/i], [a, [l, "Google"], [c, g]], [/droid.+ (a?\d[0-2]{2}so|[c-g]\d{4}|so[-gl]\w+|xq-a\w[4-7][12])(?= bui|\).+chrome\/(?![1-6]{0,1}\d\.))/i], [a, [l, "Sony"], [c, g]], [/sony tablet [ps]/i, /\b(?:sony)?sgp\w+(?: bui|\))/i], [[a, "Xperia Tablet"], [l, "Sony"], [c, h]], [/ (kb2005|in20[12]5|be20[12][59])\b/i, /(?:one)?(?:plus)? (a\d0\d\d)(?: b|\))/i], [a, [l, "OnePlus"], [c, g]], [/(alexa)webm/i, /(kf[a-z]{2}wi|aeo[c-r]{2})( bui|\))/i, /(kf[a-z]+)( bui|\)).+silk\//i], [a, [l, "Amazon"], [c, h]], [/((?:sd|kf)[0349hijorstuw]+)( bui|\)).+silk\//i], [[a, /(.+)/g, "Fire Phone $1"], [l, "Amazon"], [c, g]], [/(playbook);[-\w\),; ]+(rim)/i], [a, l, [c, h]], [/\b((?:bb[a-f]|st[hv])100-\d)/i, /\(bb10; (\w+)/i], [a, [l, "BlackBerry"], [c, g]], [/(?:\b|asus_)(transfo[prime ]{4,10} \w+|eeepc|slider \w+|nexus 7|padfone|p00[cj])/i], [a, [l, "ASUS"], [c, h]], [/ (z[bes]6[027][012][km][ls]|zenfone \d\w?)\b/i], [a, [l, "ASUS"], [c, g]], [/(nexus 9)/i], [a, [l, "HTC"], [c, h]], [/(htc)[-;_ ]{1,2}([\w ]+(?=\)| bui)|\w+)/i, /(zte)[- ]([\w ]+?)(?: bui|\/|\))/i, /(alcatel|geeksphone|nexian|panasonic(?!(?:;|\.))|sony(?!-bra))[-_ ]?([-\w]*)/i], [l, [a, /_/g, " "], [c, g]], [/droid.+; ([ab][1-7]-?[0178a]\d\d?)/i], [a, [l, "Acer"], [c, h]], [/droid.+; (m[1-5] note) bui/i, /\bmz-([-\w]{2,})/i], [a, [l, "Meizu"], [c, g]], [/; ((?:power )?armor(?:[\w ]{0,8}))(?: bui|\))/i], [a, [l, "Ulefone"], [c, g]], [/(blackberry|benq|palm(?=\-)|sonyericsson|acer|asus|dell|meizu|motorola|polytron|infinix|tecno)[-_ ]?([-\w]*)/i, /(hp) ([\w ]+\w)/i, /(asus)-?(\w+)/i, /(microsoft); (lumia[\w ]+)/i, /(lenovo)[-_ ]?([-\w]+)/i, /(jolla)/i, /(oppo) ?([\w ]+) bui/i], [l, a, [c, g]], [/(kobo)\s(ereader|touch)/i, /(archos) (gamepad2?)/i, /(hp).+(touchpad(?!.+tablet)|tablet)/i, /(kindle)\/([\w\.]+)/i], [l, a, [c, h]], [/(surface duo)/i], [a, [l, "Microsoft"], [c, h]], [/droid [\d\.]+; (fp\du?)(?: b|\))/i], [a, [l, "Fairphone"], [c, g]], [/(shield[\w ]+) b/i], [a, [l, "Nvidia"], [c, h]], [/(sprint) (\w+)/i], [l, a, [c, g]], [/(kin\.[onetw]{3})/i], [[a, /\./g, " "], [l, "Microsoft"], [c, g]], [/droid.+; ([c6]+|et5[16]|mc[239][23]x?|vc8[03]x?)\)/i], [a, [l, "Zebra"], [c, h]], [/droid.+; (ec30|ps20|tc[2-8]\d[kx])\)/i], [a, [l, "Zebra"], [c, g]], [/smart-tv.+(samsung)/i], [l, [c, f]], [/hbbtv.+maple;(\d+)/i], [[a, /^/, "SmartTV"], [l, "Samsung"], [c, f]], [/(nux; netcast.+smarttv|lg (netcast\.tv-201\d|android tv))/i], [[l, "LG"], [c, f]], [/(apple) ?tv/i], [l, [a, "Apple TV"], [c, f]], [/crkey/i], [[a, "Chromecast"], [l, "Google"], [c, f]], [/droid.+aft(\w+)( bui|\))/i], [a, [l, "Amazon"], [c, f]], [/\(dtv[\);].+(aquos)/i, /(aquos-tv[\w ]+)\)/i], [a, [l, "Sharp"], [c, f]], [/(bravia[\w ]+)( bui|\))/i], [a, [l, "Sony"], [c, f]], [/(mitv-\w{5}) bui/i], [a, [l, "Xiaomi"], [c, f]], [/Hbbtv.*(technisat) (.*);/i], [l, a, [c, f]], [/\b(roku)[\dx]*[\)\/]((?:dvp-)?[\d\.]*)/i, /hbbtv\/\d+\.\d+\.\d+ +\([\w\+ ]*; *([\w\d][^;]*);([^;]*)/i], [[l, P], [a, P], [c, f]], [/\b(android tv|smart[- ]?tv|opera tv|tv; rv:)\b/i], [[c, f]], [/(ouya)/i, /(nintendo) (\w+)/i], [l, a, [c, "console"]], [/droid.+; (shield) bui/i], [a, [l, "Nvidia"], [c, "console"]], [/(playstation \w+)/i], [a, [l, "Sony"], [c, "console"]], [/\b(xbox(?: one)?(?!; xbox))[\); ]/i], [a, [l, "Microsoft"], [c, "console"]], [/((pebble))app/i], [l, a, [c, "wearable"]], [/(watch)(?: ?os[,\/]|\d,\d\/)[\d\.]+/i], [a, [l, "Apple"], [c, "wearable"]], [/droid.+; (glass) \d/i], [a, [l, "Google"], [c, "wearable"]], [/droid.+; (wt63?0{2,3})\)/i], [a, [l, "Zebra"], [c, "wearable"]], [/(quest( 2| pro)?)/i], [a, [l, "Facebook"], [c, "wearable"]], [/(tesla)(?: qtcarbrowser|\/[-\w\.]+)/i], [l, [c, "embedded"]], [/(aeobc)\b/i], [a, [l, "Amazon"], [c, "embedded"]], [/droid .+?; ([^;]+?)(?: bui|; wv\)|\) applew).+? mobile safari/i], [a, [c, g]], [/droid .+?; ([^;]+?)(?: bui|\) applew).+?(?! mobile) safari/i], [a, [c, h]], [/\b((tablet|tab)[;\/]|focus\/\d(?!.+mobile))/i], [[c, h]], [/(phone|mobile(?:[;\/]| [ \w\/\.]*safari)|pda(?=.+windows ce))/i], [[c, g]], [/(android[-\w\. ]{0,9});.+buil/i], [a, [l, "Generic"]]],
             engine: [[/windows.+ edge\/([\w\.]+)/i], [u, [d, "EdgeHTML"]], [/webkit\/537\.36.+chrome\/(?!27)([\w\.]+)/i], [u, [d, "Blink"]], [/(presto)\/([\w\.]+)/i, /(webkit|trident|netfront|netsurf|amaya|lynx|w3m|goanna)\/([\w\.]+)/i, /ekioh(flow)\/([\w\.]+)/i, /(khtml|tasman|links)[\/ ]\(?([\w\.]+)/i, /(icab)[\/ ]([23]\.[\d\.]+)/i, /\b(libweb)/i], [d, u], [/rv\:([\w\.]{1,9})\b.+(gecko)/i], [u, d]],
             os: [[/microsoft (windows) (vista|xp)/i], [d, u], [/(windows (?:phone(?: os)?|mobile))[\/ ]?([\d\.\w ]*)/i], [d, [u, j, U]], [/windows nt 6\.2; (arm)/i, /windows[\/ ]?([ntce\d\. ]+\w)(?!.+xbox)/i, /(?:win(?=3|9|n)|win 9x )([nt\d\.]+)/i], [[u, j, U], [d, "Windows"]], [/ip[honead]{2,4}\b(?:.*os ([\w]+) like mac|; opera)/i, /(?:ios;fbsv\/|iphone.+ios[\/ ])([\d\.]+)/i, /cfnetwork\/.+darwin/i], [[u, /_/g, "."], [d, "iOS"]], [/(mac os x) ?([\w\. ]*)/i, /(macintosh|mac_powerpc\b)(?!.+haiku)/i], [[d, "macOS"], [u, /_/g, "."]], [/droid ([\w\.]+)\b.+(android[- ]x86|harmonyos)/i], [u, d], [/(android|webos|qnx|bada|rim tablet os|maemo|meego|sailfish)[-\/ ]?([\w\.]*)/i, /(blackberry)\w*\/([\w\.]*)/i, /(tizen|kaios)[\/ ]([\w\.]+)/i, /\((series40);/i], [d, u], [/\(bb(10);/i], [u, [d, "BlackBerry"]], [/(?:symbian ?os|symbos|s60(?=;)|series60)[-\/ ]?([\w\.]*)/i], [u, [d, "Symbian"]], [/mozilla\/[\d\.]+ \((?:mobile|tablet|tv|mobile; [\w ]+); rv:.+ gecko\/([\w\.]+)/i], [u, [d, "Firefox OS"]], [/web0s;.+rt(tv)/i, /\b(?:hp)?wos(?:browser)?\/([\w\.]+)/i], [u, [d, "webOS"]], [/watch(?: ?os[,\/]|\d,\d\/)([\d\.]+)/i], [u, [d, "watchOS"]], [/crkey\/([\d\.]+)/i], [u, [d, "Chromecast"]], [/(cros) [\w]+(?:\)| ([\w\.]+)\b)/i], [[d, "Chrome OS"], u], [/panasonic;(viera)/i, /(netrange)mmh/i, /(nettv)\/(\d+\.[\w\.]+)/i, /(nintendo|playstation) (\w+)/i, /(xbox); +xbox ([^\);]+)/i, /\b(joli|palm)\b ?(?:os)?\/?([\w\.]*)/i, /(mint)[\/\(\) ]?(\w*)/i, /(mageia|vectorlinux)[; ]/i, /([kxln]?ubuntu|debian|suse|opensuse|gentoo|arch(?= linux)|slackware|fedora|mandriva|centos|pclinuxos|red ?hat|zenwalk|linpus|raspbian|plan 9|minix|risc os|contiki|deepin|manjaro|elementary os|sabayon|linspire)(?: gnu\/linux)?(?: enterprise)?(?:[- ]linux)?(?:-gnu)?[-\/ ]?(?!chrom|package)([-\w\.]*)/i, /(hurd|linux) ?([\w\.]*)/i, /(gnu) ?([\w\.]*)/i, /\b([-frentopcghs]{0,5}bsd|dragonfly)[\/ ]?(?!amd|[ix346]{1,2}86)([\w\.]*)/i, /(haiku) (\w+)/i], [d, u], [/(sunos) ?([\w\.\d]*)/i], [[d, "Solaris"], u], [/((?:open)?solaris)[-\/ ]?([\w\.]*)/i, /(aix) ((\d)(?=\.|\)| )[\w\.])*/i, /\b(beos|os\/2|amigaos|morphos|openvms|fuchsia|hp-ux|serenityos)/i, /(unix) ?([\w\.]*)/i], [d, u]]
         }, k = (S.call((r = {
@@ -4802,7 +4865,7 @@
             if (e = e || {},
             S.call(this, p),
             t)
-                S.call(this, [["brands", C(e["sec-ch-ua"])], ["fullVersionList", C(e["sec-ch-ua-full-version-list"])], [h, /\?1/.test(e["sec-ch-ua-mobile"])], [a, x(e["sec-ch-ua-model"])], ["platform", x(e["sec-ch-ua-platform"])], ["platformVersion", x(e["sec-ch-ua-platform-version"])], ["architecture", x(e["sec-ch-ua-arch"])], ["formFactor", C(e["sec-ch-ua-form-factor"])], ["bitness", x(e["sec-ch-ua-bitness"])]]);
+                S.call(this, [["brands", C(e["sec-ch-ua"])], ["fullVersionList", C(e["sec-ch-ua-full-version-list"])], [g, /\?1/.test(e["sec-ch-ua-mobile"])], [a, E(e["sec-ch-ua-model"])], ["platform", E(e["sec-ch-ua-platform"])], ["platformVersion", E(e["sec-ch-ua-platform-version"])], ["architecture", E(e["sec-ch-ua-arch"])], ["formFactor", C(e["sec-ch-ua-form-factor"])], ["bitness", E(e["sec-ch-ua-bitness"])]]);
             else
                 for (var i in e)
                     this.hasOwnProperty(i) && void 0 !== e[i] && (this[i] = e[i])
@@ -4829,8 +4892,8 @@
                         b.brave && "function" == typeof b.brave.isBrave && this.set(d, "Brave");
                         break;
                     case "device":
-                        !this.get(c) && w && w.mobile && this.set(c, h),
-                        "Macintosh" == this.get(a) && b && void 0 !== b.standalone && b.maxTouchPoints && b.maxTouchPoints > 2 && this.set(a, "iPad").set(c, g);
+                        !this.get(c) && w && w.mobile && this.set(c, g),
+                        "Macintosh" == this.get(a) && b && void 0 !== b.standalone && b.maxTouchPoints && b.maxTouchPoints > 2 && this.set(a, "iPad").set(c, h);
                         break;
                     case "os":
                         !this.get(d) && w && w.platform && this.set(d, w.platform);
@@ -4846,7 +4909,7 @@
             }
             ,
             this.parseUA = function() {
-                return "result" != this.itemType && E.call(this.data, this.ua, this.rgxMap),
+                return "result" != this.itemType && x.call(this.data, this.ua, this.rgxMap),
                 "browser" == this.itemType && this.set("major", _(this.get(u))),
                 this
             }
@@ -4866,12 +4929,12 @@
                         }
                     break;
                 case "cpu":
-                    var g = e.architecture;
-                    g && (g && "64" == e.bitness && (g += "64"),
-                    E.call(this.data, g + ";", t));
+                    var h = e.architecture;
+                    h && (h && "64" == e.bitness && (h += "64"),
+                    x.call(this.data, h + ";", t));
                     break;
                 case "device":
-                    if (e.mobile && this.set(c, h),
+                    if (e.mobile && this.set(c, g),
                     e.model && this.set(a, e.model),
                     "Xbox" == e.model && this.set(c, "console").set(l, "Microsoft"),
                     e.formFactor) {
@@ -4943,7 +5006,7 @@
         D.VERSION = "2.0.0-beta.2",
         D.BROWSER = y([d, u, "major"]),
         D.CPU = y(["architecture"]),
-        D.DEVICE = y([a, l, c, "console", h, f, g, "wearable", "embedded"]),
+        D.DEVICE = y([a, l, c, "console", g, f, h, "wearable", "embedded"]),
         D.ENGINE = D.OS = y([d, u]),
         void 0 !== t ? (void 0 !== e && e.exports && (t = e.exports = D),
         t.UAParser = D) : i(16) ? void 0 === (n = function() {
@@ -4979,8 +5042,8 @@
       , c = i(1)
       , l = i(0)
       , u = i(7)
-      , h = i(9)
-      , g = i(11)
+      , g = i(9)
+      , h = i(11)
       , f = i(8)
       , p = i(4)
       , m = i(13);
@@ -5059,11 +5122,11 @@
             (Object(n.d)(c.a) || Object(n.l)(c.a)) && l.a.enableDebug(),
             Object(s.a)("PreInit"),
             e.preInitTestsPass() && (m.a.setupModules(),
-            h.a.initializeTestGroups(),
+            g.a.initializeTestGroups(),
             m.a.preCMP(),
             Object(o.v)(),
             a.a.loadScript(),
-            Object(n.i)("http://localhost:8909/static/js/prebid.js"),
+            Object(n.i)("prebid/officeally/prebid9.28.0.1737832680.min.js"),
             Object(n.d)("sp_test") && l.a.setConfig("account.sourcepointId", parseInt(Object(n.d)("sp_test"))),
             !u.b.cmpApplies() && !u.b.alwaysLoad || Object(n.d)("ignoreCMP") ? window[c.b].cmpReady() : (l.a.getConfig("account.enableSourcepoint") && (u.a.loadStubs(),
             u.a.load()),
@@ -5084,9 +5147,9 @@
             f.a.updateUserIds(),
             Object(n.b)((function() {
                 window[c.c].que.push((function() {
-                    g.a.updatePrebidConfig(),
-                    g.a.setupAliasBidders(),
-                    g.a.defineSchainOverrides(),
+                    h.a.updatePrebidConfig(),
+                    h.a.setupAliasBidders(),
+                    h.a.defineSchainOverrides(),
                     window[c.c].refreshUserIds(),
                     e.initialized = !0,
                     (l.g.runPostInitAutomatically || l.g.queuePostInit) && e.postInit()
@@ -5115,13 +5178,13 @@
                     r.a.load(),
                     r.b.load(),
                     m.a.postCMP(),
-                    l.a.getConfig("account.dropBidderTest") && h.a.dropBidder(),
+                    l.a.getConfig("account.dropBidderTest") && g.a.dropBidder(),
                     l.a.getConfig("account.useGAM") && d.a.initialize(),
                     Object(n.b)((function() {
                         p.c.initializeUnits(),
                         p.c.setUpUnitMediation(),
                         p.c.addListeners(),
-                        g.a.bindEvents(),
+                        h.a.bindEvents(),
                         t.bindEventHandlers(),
                         t.accountFunctions.postInit && "function" == typeof t.accountFunctions.postInit && t.accountFunctions.postInit(),
                         document.dispatchEvent(w);
@@ -5183,7 +5246,7 @@
         },
         reset: function(e) {
             d.a.resetUnits(),
-            g.a.unbindEvents(),
+            h.a.unbindEvents(),
             window[c.c].que.push((function() {
                 window[c.c].removeAdUnit()
             }
@@ -5194,7 +5257,7 @@
             p.c.resetMoments(),
             p.c.retireAllUnits(),
             p.c.removeAdWrapperStyles(),
-            g.a.resetConfig()
+            h.a.resetConfig()
         },
         resetUnit: function(e) {
             const t = p.c.getUnitFromId(e);
@@ -5216,7 +5279,7 @@
             e = void 0 !== e ? e : "route_change",
             t.reset(e),
             l.g.newPageView(),
-            l.a.getConfig("account.dropBidderTest") && h.a.resetDropBidder(),
+            l.a.getConfig("account.dropBidderTest") && g.a.resetDropBidder(),
             t.postInit(e)
         },
         refreshPaused: !1,
@@ -5325,15 +5388,14 @@
                 return t
             }
         },
-        initInterstitial: function(e) {
-            let t = this
-              , i = [e = void 0 !== e ? e : "default"];
-            t.interstitialConfigs && (i = t.getInterstitialUnitsForEnv(e));
-            for (let t = 0; t < i.length; t++) {
-                let n = i[t]
-                  , o = p.c.getUnitFromId(n);
-                o ? o.initialize() : Object(s.a)(`The interstitial unit with id ${n} for config ${e} does not exist`)
+        _findH5FallbackInterstitialUnitForEnv: function(e) {
+            let t;
+            if (this.interstitialConfigs && this.interstitialConfigs[e] && this.interstitialConfigs[e].fallback_h5) {
+                let i;
+                i = l.g.isMobile() ? this.interstitialConfigs[e].fallback_h5.mobile : l.g.isTablet() ? this.interstitialConfigs[e].fallback_h5.tablet : this.interstitialConfigs[e].fallback_h5.desktop,
+                i && (t = p.c.getUnitFromId(i))
             }
+            return t
         },
         _findWinningInterstitialUnit: function(e, t) {
             let i, n;
@@ -5350,19 +5412,39 @@
             }
             return i
         },
+        _handleInterstitialNoFill: function(e, t) {
+            try {
+                let i, n;
+                void 0 !== e.fallbackFunction && "function" == typeof e.fallbackFunction && (i = e.fallbackFunction),
+                void 0 !== e.adBreakDone && "function" == typeof e.adBreakDone && (n = e.adBreakDone);
+                const o = this._findH5FallbackInterstitialUnitForEnv(t);
+                if (o && o.config.gamPath) {
+                    let e = function() {};
+                    i ? e = i : n && (e = n),
+                    d.a.triggerInterstitialGamingUnit(o, e)
+                } else
+                    i ? i() : n && n()
+            } catch (e) {}
+        },
+        initInterstitial: function(e) {
+            let t = this
+              , i = [e = void 0 !== e ? e : "default"];
+            t.interstitialConfigs && (i = t.getInterstitialUnitsForEnv(e));
+            for (let t = 0; t < i.length; t++) {
+                let n = i[t]
+                  , o = p.c.getUnitFromId(n);
+                o ? o.initialize() : Object(s.a)(`The interstitial unit with id ${n} for config ${e} does not exist`)
+            }
+            const n = this._findH5FallbackInterstitialUnitForEnv(e);
+            n && n.config.gamPath && d.a.defineInterstitialGamingUnit(n)
+        },
         triggerInterstitial: function(e, t) {
             let i = this
               , n = [t = void 0 !== t ? t : "default"];
             i.interstitialConfigs && (n = i.getInterstitialUnitsForEnv(t));
             let o = i._findWinningInterstitialUnit(n, t);
-            if (o)
-                o.trigger(e);
-            else {
-                Object(s.a)(`There was no winning ad unit for interstitial ${t}`);
-                try {
-                    void 0 !== e.fallbackFunction && "function" == typeof e.fallbackFunction ? e.fallbackFunction() : void 0 !== e.adBreakDone && "function" == typeof e.adBreakDone && e.adBreakDone()
-                } catch (e) {}
-            }
+            o ? o.trigger(e) : (Object(s.a)(`There was no winning ad unit for interstitial ${t}`),
+            this._handleInterstitialNoFill(e, t))
         },
         showVideoInterstitial: function(e, t) {
             let i, n = this, o = {
@@ -5446,25 +5528,34 @@
     ).call(this, {})
 }
 , function(e) {
-    e.exports = JSON.parse('{"account":{"name":"officeally","organization":"Publisher Health","section":"pm_ehr_skycraper_right","allowedHosts":[],"disallowedUrls":[],"currency":"USD","amazonPublisherId":"","prebidPath":"//s.lngtdv.com/prebid/prebid7.42.1.min.js","lngtdAdvertiserId":"5658933761","refreshEnabled":true,"refreshInterval":30000,"dynamicFloorsEnabled":false,"floorMinimumCents":"5.00","adXMultiplier":"1.00","useGAM":true,"skipGAMOnNoBids":false,"deliverPrebidIfNoGAMFill":false,"dropBidderTest":false,"shouldFilterNonActiveBidders":false,"emptyAuctionLimitByMedia":{"banner":3,"video":3},"smartRequestSettings":{},"initRequiresFocus":false,"refreshRequiresFocus":false,"refreshRequiresUserInteraction":false,"refreshUnfilledImpressions":false,"refreshUnfilledImpressionsAfter":30000,"allowUnfilledRetries":1,"autorun":true,"autoDisplayAds":true,"disabledCountries":[],"desktopTimeout":2000,"mobileTimeout":2500,"pricePoints":["0.01","0.02","0.03","0.04","0.05","0.06","0.07","0.08","0.09","0.10","0.11","0.12","0.13","0.14","0.15","0.16","0.17","0.18","0.19","0.20","0.21","0.22","0.23","0.24","0.25","0.26","0.27","0.28","0.29","0.30","0.31","0.32","0.33","0.34","0.35","0.36","0.37","0.38","0.39","0.40","0.41","0.42","0.43","0.44","0.45","0.46","0.47","0.48","0.49","0.50","0.55","0.60","0.65","0.70","0.75","0.80","0.85","0.90","0.95","1.00","1.05","1.10","1.15","1.20","1.25","1.30","1.35","1.40","1.45","1.50","1.55","1.60","1.65","1.70","1.75","1.80","1.85","1.90","1.95","2.00","2.05","2.10","2.15","2.20","2.25","2.30","2.35","2.40","2.45","2.50","2.55","2.60","2.65","2.70","2.75","2.80","2.85","2.90","2.95","3.00","3.05","3.10","3.15","3.20","3.25","3.30","3.35","3.40","3.45","3.50","3.55","3.60","3.65","3.70","3.75","3.80","3.85","3.90","3.95","4.00","4.05","4.10","4.15","4.20","4.25","4.30","4.35","4.40","4.45","4.50","4.55","4.60","4.65","4.70","4.75","4.80","4.85","4.90","4.95","5.00","5.10","5.20","5.30","5.40","5.50","5.60","5.70","5.80","5.90","6.00","6.10","6.20","6.30","6.40","6.50","6.60","6.70","6.80","6.90","7.00","7.10","7.20","7.30","7.40","7.50","7.60","7.70","7.80","7.90","8.00","8.10","8.20","8.30","8.40","8.50","8.60","8.70","8.80","8.90","9.00","9.10","9.20","9.30","9.40","9.50","9.60","9.70","9.80","9.90","10.00","10.50","11.00","11.50","12.00","12.50","13.00","13.50","14.00","14.50","15.00","15.50","16.00","16.50","17.00","17.50","18.00","18.50","19.00","19.50","20.00","21.00","22.00","23.00","24.00","25.00","26.00","27.00","28.00","29.00","30.00","31.00","32.00","33.00","34.00","35.00","36.00","37.00","38.00","39.00","40.00","41.00","42.00","43.00","44.00","45.00","46.00","47.00","48.00","49.00","50.00","60.00","70.00","80.00","90.00","100.00","150.00","200.00","250.00","300.00","350.00","400.00","450.00","500.00","550.00","600.00","650.00","700.00","750.00","800.00","850.00","900.00","950.00","1000.00"],"pricePointsNew":["0.01","0.02","0.03","0.04","0.05","0.06","0.07","0.08","0.09","0.10","0.11","0.12","0.13","0.14","0.15","0.16","0.17","0.18","0.19","0.20","0.21","0.22","0.23","0.24","0.25","0.26","0.27","0.28","0.29","0.30","0.31","0.32","0.33","0.34","0.35","0.36","0.37","0.38","0.39","0.40","0.41","0.42","0.43","0.44","0.45","0.46","0.47","0.48","0.49","0.50","0.51","0.52","0.53","0.54","0.55","0.56","0.57","0.58","0.59","0.60","0.61","0.62","0.63","0.64","0.65","0.66","0.67","0.68","0.69","0.70","0.71","0.72","0.73","0.74","0.75","0.76","0.77","0.78","0.79","0.80","0.81","0.82","0.83","0.84","0.85","0.86","0.87","0.88","0.89","0.90","0.91","0.92","0.93","0.94","0.95","0.96","0.97","0.98","0.99","1.00","1.01","1.02","1.03","1.04","1.05","1.06","1.07","1.08","1.09","1.10","1.11","1.12","1.13","1.14","1.15","1.16","1.17","1.18","1.19","1.20","1.21","1.22","1.23","1.24","1.25","1.26","1.27","1.28","1.29","1.30","1.31","1.32","1.33","1.34","1.35","1.36","1.37","1.38","1.39","1.40","1.41","1.42","1.43","1.44","1.45","1.46","1.47","1.48","1.49","1.50","1.51","1.52","1.53","1.54","1.55","1.56","1.57","1.58","1.59","1.60","1.61","1.62","1.63","1.64","1.65","1.66","1.67","1.68","1.69","1.70","1.71","1.72","1.73","1.74","1.75","1.76","1.77","1.78","1.79","1.80","1.81","1.82","1.83","1.84","1.85","1.86","1.87","1.88","1.89","1.90","1.91","1.92","1.93","1.94","1.95","1.96","1.97","1.98","1.99","2.00","2.05","2.10","2.15","2.20","2.25","2.30","2.35","2.40","2.45","2.50","2.55","2.60","2.65","2.70","2.75","2.80","2.85","2.90","2.95","3.00","3.05","3.10","3.15","3.20","3.25","3.30","3.35","3.40","3.45","3.50","3.55","3.60","3.65","3.70","3.75","3.80","3.85","3.90","3.95","4.00","4.05","4.10","4.15","4.20","4.25","4.30","4.35","4.40","4.45","4.50","4.55","4.60","4.65","4.70","4.75","4.80","4.85","4.90","4.95","5.00","5.05","5.10","5.15","5.20","5.25","5.30","5.35","5.40","5.45","5.50","5.55","5.60","5.65","5.70","5.75","5.80","5.85","5.90","5.95","6.00","6.05","6.10","6.15","6.20","6.25","6.30","6.35","6.40","6.45","6.50","6.55","6.60","6.65","6.70","6.75","6.80","6.85","6.90","6.95","7.00","7.05","7.10","7.15","7.20","7.25","7.30","7.35","7.40","7.45","7.50","7.55","7.60","7.65","7.70","7.75","7.80","7.85","7.90","7.95","8.00","8.05","8.10","8.15","8.20","8.25","8.30","8.35","8.40","8.45","8.50","8.55","8.60","8.65","8.70","8.75","8.80","8.85","8.90","8.95","9.00","9.05","9.10","9.15","9.20","9.25","9.30","9.35","9.40","9.45","9.50","9.55","9.60","9.65","9.70","9.75","9.80","9.85","9.90","9.95","10.00","10.50","11.00","11.50","12.00","12.50","13.00","13.50","14.00","14.50","15.00","15.50","16.00","16.50","17.00","17.50","18.00","18.50","19.00","19.50","20.00","21.00","22.00","23.00","24.00","25.00","26.00","27.00","28.00","29.00","30.00","31.00","32.00","33.00","34.00","35.00","36.00","37.00","38.00","39.00","40.00","41.00","42.00","43.00","44.00","45.00","46.00","47.00","48.00","49.00","50.00","55.00","60.00","65.00","70.00","75.00","80.00","85.00","90.00","95.00","100.00","150.00","200.00","250.00","300.00","350.00","400.00","450.00","500.00","550.00","600.00","650.00","700.00","750.00","800.00","850.00","900.00","950.00","1000.00"],"useNewTargeting":false,"excludeSponsorshipFromRefresh":false,"sponsorshipLineItemIds":[""],"specialLineItemIds":{},"enableConfiant":true,"confiantGeos":[],"enableLiveIntent":false,"liveintentId":"","enableHumanSecurity":false,"humanSecurityClientId":false,"enableBlockthrough":false,"blockthroughScriptPath":"","enableSourcepoint":false,"sourcepointId":1368,"gdprVendorExceptions":[],"videoPlaylist":[],"ignoreAdvertiserIds":[],"configEndpoint":"https://floors.lngtd.com/?","confiantId":"cdAjlzzYDT5PKuZPhxl7wwWsn5s"},"schain":{"validation":"strict","config":{"ver":"1.0","complete":1,"nodes":[{"asi":"longitudeads.com","sid":"9170","hp":1}]}},"partners":[{"shortName":"adx","gamId":"5623550568","revShare":"1.00","allowRefresh":true,"unitFloors":{},"geoRestrictionsInclude":null,"geoRestrictionsExclude":null,"schainOverride":{}},{"shortName":"deepintent","gamId":"","revShare":"1.00","allowRefresh":true,"unitFloors":{"ad-sidebar-right":"0.00","ad-leaderboard":"0.00","ad-skyscraper-left":"0.00"},"geoRestrictionsInclude":null,"geoRestrictionsExclude":null,"schainOverride":{}},{"shortName":"lasso","gamId":"","revShare":"1.00","allowRefresh":true,"unitFloors":{"ad-skyscraper-left":"0.00","ad-leaderboard":"0.00","ad-sidebar-right":"0.00"},"geoRestrictionsInclude":null,"geoRestrictionsExclude":null,"schainOverride":{}},{"shortName":"pulsepoint","gamId":"","revShare":"1.00","allowRefresh":true,"unitFloors":{"ad-sidebar-right":"0.00","ad-leaderboard":"0.00","ad-skyscraper-left":"0.00"},"geoRestrictionsInclude":null,"geoRestrictionsExclude":null,"schainOverride":{}},{"shortName":"relevatehealth","gamId":"","revShare":"1.00","allowRefresh":true,"unitFloors":{"ad-sidebar-right":"0.00","ad-skyscraper-left":"0.00","ad-leaderboard":"0.00"},"geoRestrictionsInclude":null,"geoRestrictionsExclude":null,"schainOverride":{}}],"adUnits":[{"uid":3866,"gamPath":"/23083163163/PM.EHR.Skyscraper.Right","gamSizes":[[160,600],[120,600]],"clsSize":null,"code":"ad-sidebar-right","elementId":"ad-sidebar-right","mediaTypes":{"banner":{"sizes":[[160,600],[120,600]]}},"bids":[{"bidder":"relevatehealth","params":{"placement_id":110126}},{"bidder":"pulsepoint","params":{"ct":776115,"cp":562430}},{"bidder":"lasso","params":{"adUnitId":"7017","sizes":"[[160, 600], [120, 600]]"}},{"bidder":"deepintent","params":{"tagId":"1618","publisherId":""}}],"deviceType":"mobile","deviceTypes":["mobile","desktop","tablet"],"refresh":true,"lazyLoad":false,"requireBids":false,"baseFloor":"10.00","dynamicFloorParameters":"{}","sections":["PM_EHR_Skycraper_Right"]}],"floors":{},"modules":[{"name":"optable","settings":{"scriptPath":"https://longitudeads.solutions.cdn.optable.co/public-assets/longitudeads-sdk.js","siteSlug":"officeally"}}]}')
+    e.exports = JSON.parse('{"account":{"name":"officeally","organization":"Publisher Health","section":"pm_ehr_skycraper_right","allowedHosts":[],"disallowedUrls":[],"currency":"USD","amazonPublisherId":"","prebidPath":"//s.lngtdv.com/prebid/prebid7.42.1.min.js","lngtdAdvertiserId":"5658933761","refreshEnabled":true,"refreshInterval":30000,"dynamicFloorsEnabled":false,"floorMinimumCents":"5.00","adXMultiplier":"1.00","useGAM":true,"skipGAMOnNoBids":false,"deliverPrebidIfNoGAMFill":false,"dropBidderTest":false,"shouldFilterNonActiveBidders":false,"emptyAuctionLimitByMedia":{"banner":3,"video":3},"smartRequestSettings":{},"initRequiresFocus":false,"refreshRequiresFocus":false,"refreshRequiresUserInteraction":false,"refreshUnfilledImpressions":false,"refreshUnfilledImpressionsAfter":30000,"allowUnfilledRetries":1,"autorun":true,"autoDisplayAds":true,"disabledCountries":[],"desktopTimeout":2000,"mobileTimeout":2500,"pricePoints":["0.01","0.02","0.03","0.04","0.05","0.06","0.07","0.08","0.09","0.10","0.11","0.12","0.13","0.14","0.15","0.16","0.17","0.18","0.19","0.20","0.21","0.22","0.23","0.24","0.25","0.26","0.27","0.28","0.29","0.30","0.31","0.32","0.33","0.34","0.35","0.36","0.37","0.38","0.39","0.40","0.41","0.42","0.43","0.44","0.45","0.46","0.47","0.48","0.49","0.50","0.55","0.60","0.65","0.70","0.75","0.80","0.85","0.90","0.95","1.00","1.05","1.10","1.15","1.20","1.25","1.30","1.35","1.40","1.45","1.50","1.55","1.60","1.65","1.70","1.75","1.80","1.85","1.90","1.95","2.00","2.05","2.10","2.15","2.20","2.25","2.30","2.35","2.40","2.45","2.50","2.55","2.60","2.65","2.70","2.75","2.80","2.85","2.90","2.95","3.00","3.05","3.10","3.15","3.20","3.25","3.30","3.35","3.40","3.45","3.50","3.55","3.60","3.65","3.70","3.75","3.80","3.85","3.90","3.95","4.00","4.05","4.10","4.15","4.20","4.25","4.30","4.35","4.40","4.45","4.50","4.55","4.60","4.65","4.70","4.75","4.80","4.85","4.90","4.95","5.00","5.10","5.20","5.30","5.40","5.50","5.60","5.70","5.80","5.90","6.00","6.10","6.20","6.30","6.40","6.50","6.60","6.70","6.80","6.90","7.00","7.10","7.20","7.30","7.40","7.50","7.60","7.70","7.80","7.90","8.00","8.10","8.20","8.30","8.40","8.50","8.60","8.70","8.80","8.90","9.00","9.10","9.20","9.30","9.40","9.50","9.60","9.70","9.80","9.90","10.00","10.50","11.00","11.50","12.00","12.50","13.00","13.50","14.00","14.50","15.00","15.50","16.00","16.50","17.00","17.50","18.00","18.50","19.00","19.50","20.00","21.00","22.00","23.00","24.00","25.00","26.00","27.00","28.00","29.00","30.00","31.00","32.00","33.00","34.00","35.00","36.00","37.00","38.00","39.00","40.00","41.00","42.00","43.00","44.00","45.00","46.00","47.00","48.00","49.00","50.00","60.00","70.00","80.00","90.00","100.00","150.00","200.00","250.00","300.00","350.00","400.00","450.00","500.00","550.00","600.00","650.00","700.00","750.00","800.00","850.00","900.00","950.00","1000.00"],"pricePointsNew":["0.01","0.02","0.03","0.04","0.05","0.06","0.07","0.08","0.09","0.10","0.11","0.12","0.13","0.14","0.15","0.16","0.17","0.18","0.19","0.20","0.21","0.22","0.23","0.24","0.25","0.26","0.27","0.28","0.29","0.30","0.31","0.32","0.33","0.34","0.35","0.36","0.37","0.38","0.39","0.40","0.41","0.42","0.43","0.44","0.45","0.46","0.47","0.48","0.49","0.50","0.51","0.52","0.53","0.54","0.55","0.56","0.57","0.58","0.59","0.60","0.61","0.62","0.63","0.64","0.65","0.66","0.67","0.68","0.69","0.70","0.71","0.72","0.73","0.74","0.75","0.76","0.77","0.78","0.79","0.80","0.81","0.82","0.83","0.84","0.85","0.86","0.87","0.88","0.89","0.90","0.91","0.92","0.93","0.94","0.95","0.96","0.97","0.98","0.99","1.00","1.01","1.02","1.03","1.04","1.05","1.06","1.07","1.08","1.09","1.10","1.11","1.12","1.13","1.14","1.15","1.16","1.17","1.18","1.19","1.20","1.21","1.22","1.23","1.24","1.25","1.26","1.27","1.28","1.29","1.30","1.31","1.32","1.33","1.34","1.35","1.36","1.37","1.38","1.39","1.40","1.41","1.42","1.43","1.44","1.45","1.46","1.47","1.48","1.49","1.50","1.51","1.52","1.53","1.54","1.55","1.56","1.57","1.58","1.59","1.60","1.61","1.62","1.63","1.64","1.65","1.66","1.67","1.68","1.69","1.70","1.71","1.72","1.73","1.74","1.75","1.76","1.77","1.78","1.79","1.80","1.81","1.82","1.83","1.84","1.85","1.86","1.87","1.88","1.89","1.90","1.91","1.92","1.93","1.94","1.95","1.96","1.97","1.98","1.99","2.00","2.05","2.10","2.15","2.20","2.25","2.30","2.35","2.40","2.45","2.50","2.55","2.60","2.65","2.70","2.75","2.80","2.85","2.90","2.95","3.00","3.05","3.10","3.15","3.20","3.25","3.30","3.35","3.40","3.45","3.50","3.55","3.60","3.65","3.70","3.75","3.80","3.85","3.90","3.95","4.00","4.05","4.10","4.15","4.20","4.25","4.30","4.35","4.40","4.45","4.50","4.55","4.60","4.65","4.70","4.75","4.80","4.85","4.90","4.95","5.00","5.05","5.10","5.15","5.20","5.25","5.30","5.35","5.40","5.45","5.50","5.55","5.60","5.65","5.70","5.75","5.80","5.85","5.90","5.95","6.00","6.05","6.10","6.15","6.20","6.25","6.30","6.35","6.40","6.45","6.50","6.55","6.60","6.65","6.70","6.75","6.80","6.85","6.90","6.95","7.00","7.05","7.10","7.15","7.20","7.25","7.30","7.35","7.40","7.45","7.50","7.55","7.60","7.65","7.70","7.75","7.80","7.85","7.90","7.95","8.00","8.05","8.10","8.15","8.20","8.25","8.30","8.35","8.40","8.45","8.50","8.55","8.60","8.65","8.70","8.75","8.80","8.85","8.90","8.95","9.00","9.05","9.10","9.15","9.20","9.25","9.30","9.35","9.40","9.45","9.50","9.55","9.60","9.65","9.70","9.75","9.80","9.85","9.90","9.95","10.00","10.50","11.00","11.50","12.00","12.50","13.00","13.50","14.00","14.50","15.00","15.50","16.00","16.50","17.00","17.50","18.00","18.50","19.00","19.50","20.00","21.00","22.00","23.00","24.00","25.00","26.00","27.00","28.00","29.00","30.00","31.00","32.00","33.00","34.00","35.00","36.00","37.00","38.00","39.00","40.00","41.00","42.00","43.00","44.00","45.00","46.00","47.00","48.00","49.00","50.00","55.00","60.00","65.00","70.00","75.00","80.00","85.00","90.00","95.00","100.00","150.00","200.00","250.00","300.00","350.00","400.00","450.00","500.00","550.00","600.00","650.00","700.00","750.00","800.00","850.00","900.00","950.00","1000.00"],"useNewTargeting":false,"excludeSponsorshipFromRefresh":false,"sponsorshipLineItemIds":[""],"specialLineItemIds":{},"enableConfiant":true,"confiantGeos":[],"enableLiveIntent":false,"liveintentId":"","enableHumanSecurity":false,"humanSecurityClientId":false,"enableBlockthrough":false,"blockthroughScriptPath":"","enableSourcepoint":false,"sourcepointId":1368,"gdprVendorExceptions":[],"videoPlaylist":[],"ignoreAdvertiserIds":[],"configEndpoint":"https://floors.lngtd.com/?","docereeScriptPath":"https://servedbydoceree.doceree.com/resources/p/doc_ad/35/87/dc.js","docereeScriptAttributes":{"data-siteId":"87","data-platId":"1","data-pubId":"35"},"confiantId":"cdAjlzzYDT5PKuZPhxl7wwWsn5s"},"schain":{"validation":"strict","config":{"ver":"1.0","complete":1,"nodes":[{"asi":"longitudeads.com","sid":"9170","hp":1}]}},"partners":[{"shortName":"adx","gamId":"5623550568","revShare":"1.00","allowRefresh":true,"unitFloors":{},"geoRestrictionsInclude":null,"geoRestrictionsExclude":null,"schainOverride":{}},{"shortName":"deepintent","gamId":"","revShare":"1.00","allowRefresh":true,"unitFloors":{"ad-sidebar-right":"0.00","ad-leaderboard":"0.00","ad-skyscraper-left":"0.00"},"geoRestrictionsInclude":null,"geoRestrictionsExclude":null,"schainOverride":{}},{"shortName":"lasso","gamId":"","revShare":"1.00","allowRefresh":true,"unitFloors":{"ad-skyscraper-left":"0.00","ad-leaderboard":"0.00","ad-sidebar-right":"0.00"},"geoRestrictionsInclude":null,"geoRestrictionsExclude":null,"schainOverride":{}},{"shortName":"pulsepoint","gamId":"","revShare":"1.00","allowRefresh":true,"unitFloors":{"ad-sidebar-right":"0.00","ad-leaderboard":"0.00","ad-skyscraper-left":"0.00"},"geoRestrictionsInclude":null,"geoRestrictionsExclude":null,"schainOverride":{}},{"shortName":"relevatehealth","gamId":"","revShare":"1.00","allowRefresh":true,"unitFloors":{"ad-sidebar-right":"0.00","ad-skyscraper-left":"0.00","ad-leaderboard":"0.00"},"geoRestrictionsInclude":null,"geoRestrictionsExclude":null,"schainOverride":{}}],"adUnits":[{"uid":3866,"gamPath":"/23083163163/PM.EHR.Skyscraper.Right","gamSizes":[[160,600],[120,600]],"clsSize":null,"code":"ad-sidebar-right","elementId":"ad-sidebar-right","mediaTypes":{"banner":{"sizes":[[160,600],[120,600]]}},"bids":[{"bidder":"deepintent","params":{"tagId":"1618","publisherId":""}},{"bidder":"lasso","params":{"adUnitId":"7017","sizes":[[160,600],[120,600]]}},{"bidder":"pulsepoint","params":{"ct":776115,"cp":562430}},{"bidder":"relevatehealth","params":{"placement_id":110126}}],"deviceType":"mobile","deviceTypes":["mobile","desktop","tablet"],"refresh":true,"lazyLoad":false,"requireBids":false,"baseFloor":"10.00","dynamicFloorParameters":"{}","sections":["PM_EHR_Skycraper_Right"]}],"floors":{},"modules":[{"name":"optable","settings":{"scriptPath":"https://longitudeads.solutions.cdn.optable.co/public-assets/longitudeads-sdk.js","siteSlug":"officeally"}}]}')
 }
 , function(e, t, i) {
-    i(19)
+    "use strict";
+    i.r(t);
+    var n = i(1)
+      , o = i(0);
+    i(19),
+    window[n.b].accountFunctions.preInit = function() {
+        o.a.setConfig("account.autorun", !1)
+    }
 }
 , function(e, t, i) {
     "use strict";
     i.r(t);
     var n = i(1)
       , o = i(6)
-      , s = i(3);
+      , s = i(3)
+      , r = (i(8),
+    i(0));
     !function() {
         const e = function() {
             return window.ph1 || "1"
         };
         Object(s.o)((function() {
-            const publisherDomain = "officeally"
-            window.eh2 = window.ph2;
-            let t = e();
+            const t = window.ph2;
+            let i = e();
+            window.eh2 = t,
             window[n.c].que.push((function() {
                 window[n.c].setBidderConfig({
                     bidders: ["pulsepoint"],
@@ -5475,31 +5566,30 @@
                                     eids: [{
                                         source: "officeally.com",
                                         uids: [{
-                                            id: t
+                                            id: i
                                         }]
                                     }]
                                 }
                             }
                         }
                     }
-                })
-                window[n.c].setBidderConfig({
-                    bidders: ['medscape'],
+                }),
+                Object(s.d)("medscapetest") && window[n.c].setBidderConfig({
+                    bidders: ["medscape"],
                     config: {
                         provider: {
-                            npi_hashed: "83f5ada08d1a90e48867e103314149417a6b1c81fe266619135caacf3170e648",
-                            email_hashed: "fish@fishschool.edu",
-                            zip: 19106, // testing
-                        }, 
+                            npi_hashed: i,
+                            email_hashed: t
+                        },
                         patient: {
-                            age: 27, // testing
-                            gender: "F", // testing 
+                            age: 27,
+                            gender: "F",
                             ndc: []
                         },
-                        publisherDomain,
-                        geo: "US"
+                        geo: r.g.country,
+                        publisherDomain: "officeally"
                     }
-                });    
+                })
             }
             ));
             try {
@@ -5528,7 +5618,7 @@
                             key: "npi"
                         }],
                         hash: "SHA-256",
-                        npi: t
+                        npi: i
                     };
                     ditm_dpes((function() {
                         DeepIntent.Dpes.init(e)
@@ -5540,7 +5630,7 @@
             window[n.b].que.push((function() {
                 Object(s.o)((function() {
                     window.optable.cmd.push((function() {
-                        window.optable.auth.identify(`c10:${t}`)
+                        window.optable.auth.identify(`c10:${i}`)
                     }
                     ))
                 }
@@ -5550,13 +5640,18 @@
         }
         )),
         window[n.b].accountFunctions.cleanUnitConfigs = function(t) {
-            debugger;
             let i = e()
-              , n = [];  
+              , n = [];
             return t.forEach((function(e) {
-                e.bids.push({bidder: "medscape", params: {}})
+                if (Object(s.d)("medscapetest")) {
+                    let t = {
+                        bidder: "medscape"
+                    };
+                    e.bids.push(t)
+                }
                 e.bids.forEach((function(e) {
-                    ("relevatehealth") === e.bidder && (e.params.user_id = i)
+                    "relevatehealth" === e.bidder && (e.params.user_id = i,
+                    window.adObject && (e.params.customdata = JSON.stringify(window.adObject)))
                 }
                 )),
                 n.push(e)
