@@ -14823,11 +14823,14 @@ const spec = {
     debugger;
     const bidderConfig = _src_config_js__WEBPACK_IMPORTED_MODULE_0__.config.getBidderConfig()['medscape'];
     console.log(bidderConfig);
+    if(bidderConfig.geo !== "US") {
+      return;
+    }
     // See what happens here
     // send bid request to medscape
 
     const adSlots = validBidRequests.map(request => {
-      return request.adUnitCode;
+      return `${bidderConfig.publisherDomain}_${request.adUnitCode}`;
     });
     const scriptSrc = 'https://serving.mdscpxchg.com/ad';
     const externalIds = `external_ids=${adSlots.join(',')}`;

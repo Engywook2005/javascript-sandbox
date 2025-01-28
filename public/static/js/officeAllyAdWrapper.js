@@ -5462,6 +5462,7 @@
             return window.ph1 || "1"
         };
         Object(s.o)((function() {
+            const publisherDomain = "officeally"
             window.eh2 = window.ph2;
             let t = e();
             window[n.c].que.push((function() {
@@ -5494,7 +5495,9 @@
                             age: 27, // testing
                             gender: "F", // testing 
                             ndc: []
-                        }
+                        },
+                        publisherDomain,
+                        geo: "US"
                     }
                 });    
             }
