@@ -23,7 +23,14 @@ app.use(webpackHotMiddleware(compiler));
 
 // Set headers so our output can be used off local. 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*"); // Adjust if needed for specific domains
+  const allowedOrigins = ['https://pm.officeally.com']; // Add any other needed origins
+  const origin = req.headers.origin;
+
+  if (allowedOrigins.includes(origin)) {
+      res.header("Access-Control-Allow-Origin", origin);
+      res.header("Access-Control-Allow-Credentials", "true"); // Allow credentials
+  }
+
   res.header("Access-Control-Allow-Methods", "GET, OPTIONS"); // Only allow GET and OPTIONS requests
   res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
