@@ -5489,6 +5489,7 @@ function newConfig() {
     listeners.filter(listener => listener.topic === ALL_TOPICS).forEach(listener => listener.callback(options));
   }
   function setBidderConfig(config) {
+    debugger;
     let mergeFlag = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
     try {
       check(config);
