@@ -5537,7 +5537,7 @@
       , o = i(0);
     i(19),
     window[n.b].accountFunctions.preInit = function() {
-        o.a.setConfig("account.autorun", !1)
+        // o.a.setConfig("account.autorun", !1)
     }
 }
 , function(e, t, i) {

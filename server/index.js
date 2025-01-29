@@ -21,6 +21,25 @@ app.use(
 // Use Webpack Hot Middleware for HMR
 app.use(webpackHotMiddleware(compiler));
 
+// Set headers so our output can be used off local. 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*"); // Adjust if needed for specific domains
+  res.header("Access-Control-Allow-Methods", "GET, OPTIONS"); // Only allow GET and OPTIONS requests
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+  // Handle preflight requests
+  if (req.method === "OPTIONS") {
+      return res.sendStatus(204); // No content response
+  }
+
+  // Block non-GET requests explicitly
+  if (req.method !== "GET") {
+      return res.status(405).json({ error: "Method Not Allowed" });
+  }
+
+  next();
+});
+
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, '..', 'public')));
 

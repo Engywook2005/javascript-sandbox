@@ -1,33 +1,34 @@
 {
     "winners": [
-    {
-    "impid": "5499ba8e-caea-4f56-a71a-800991641aad",
-    "h": 90,
-    "w": 728,
-    "external_id": "{PublisherDomain_Ad_Slot_ID_1}",
-    "winner_id": "rtb_1_1",
-    "price": 400,
-    "deal_id": "DealID001"
-    }
+      {
+        "impid": "5499ba8e-caea-4f56-a71a-800991641aad",
+        "h": 90,
+        "w": 728,
+        "external_id": "{PublisherDomain_Ad_Slot_ID_1}",
+        "winner_id": "rtb_1_1",
+        "price": 400,
+        "deal_id": "DealID001"
+      }
     ],
     "matched_data": [
-    {
-    "external_id": "{PublisherDomain_Ad_Slot_ID_1}",
-    "deal_ids": [
-    "DealID002"
+      {
+        "external_id": "{PublisherDomain_Ad_Slot_ID_1}",
+        "deal_ids": [
+          "DealID002"
+        ]
+      },
+      {
+        "external_id": "{PublisherDomain_Ad_Slot_ID_2}",
+        "deal_ids": [
+          "DealID003"
+        ]
+      },
+      {
+        "external_id": "{PublisherDomain_Ad_Slot_ID_3}",
+        "deal_ids": [
+          "DealID004",
+          "DealID005"
+        ]
+      }
     ]
-    },
-    {
-    "external_id": "{PublisherDomain_Ad_Slot_ID_2}",
-    "deal_ids": [
-    "DealID003"]
-},
-{
-"external_id": "{PublisherDomain_Ad_Slot_ID_3}",
-"deal_ids": [
-"DealID004",
-"DealID005"
-]
-}
-]
-}
+  }
