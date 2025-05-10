@@ -1,3 +1,3 @@
-import { greet } from './howdy';
+import { coinPyramid } from "./recursion";
 
-greet('Dr Fish and Grizelda')
+console.log(coinPyramid(7));
